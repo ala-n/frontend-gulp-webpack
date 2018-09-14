@@ -1,0 +1,9 @@
+node_modules
+.idea
+*.iml
+*.ipr
+*.iws
+.DS_Store
+target
+npm-debug.log
+.gitconfig
