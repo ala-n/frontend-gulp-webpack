@@ -1,12 +1,12 @@
 body {
   font-family: 'Cabin', sans-serif;
   color: rgba(22, 0, 27, 0.9);
-  background: #fbfbfb;
+  background: #ffffff;
 }
 
 .header {
   display: flex;
-  height: 50px;
+  height: 5vw;
   align-items: center;
   justify-content: space-between;
   .logo {
@@ -18,30 +18,94 @@ body {
   .language{
     margin-right: 40px;
   }
+  .language-change{
+    position: absolute;
+    margin: 0;
+  }
+  //.language-change:after {
+  //  display: block;
+  //  content: ' ';
+  //  clear: both;
+  //  float: none;
+  //}
+  .language-change > li {
+    display: none;
+  }
+  .language-change:hover > li {
+    display: block;
+  }
+  //.language-change > li > a {
+  //  display: block;
+  //  padding: 10px;
+  //  color: white;
+  //  background-color: red;
+  //  text-decoration: none;
+  //}
 }
 
 #articles {
   width: 100%;
   display: flex;
   flex-direction: row;
-  background: #fbfbfb;
   justify-content: space-between;
   word-wrap: break-word;
   .information {
     word-break: break-all;
     overflow: hidden;
     width: 30%;
-    height: 250px;
-    background: #dce1fd;
+    height: 400px;
+    background: rgba(255, 255, 255, 0.27);
     margin: 30px;
+    border-color: black white;
+    border-style: solid;
     .name-information{
+      margin: 15px;
       font-weight: bold;
+    }
+    .text-information{
+      height: 70%;
+      margin: 15px;
+      overflow: hidden;
+    }
+    .text-information-more{
+      margin: 15px;
+    }
+  }
+}
+@media screen and (max-width: 1000px) {
+  #articles {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    word-wrap: break-word;
+    .information {
+      word-break: break-all;
+      overflow: hidden;
+      width: 50%;
+      height: 400px;
+      background: rgba(255, 255, 255, 0.27);
+      margin: 30px;
+      border-color: black white;
+      border-style: solid;
+      .name-information{
+        margin: 15px;
+        font-weight: bold;
+      }
+      .text-information{
+        height: 70%;
+        margin: 15px;
+      }
+      .text-information-more{
+        margin: 15px;
+      }
     }
   }
 }
 footer {
   display: flex;
-  position: absolute;
+  position: relative;
   bottom: 0;
   right: 0;
   flex-direction: row;
