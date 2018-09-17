@@ -1,3 +1,53 @@
+body {
+  font-family: 'Cabin', sans-serif;
+  color: rgba(22, 0, 27, 0.9);
+  background: #fbfbfb;
+}
+
 .header {
-  color: rgba(221, 67, 53, 0.94);
+  display: flex;
+  height: 50px;
+  align-items: center;
+  justify-content: space-between;
+  .logo {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1.7;
+    margin-left: 40px;
+  }
+  .language{
+    margin-right: 40px;
+  }
+}
+
+#articles {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  background: #fbfbfb;
+  justify-content: space-between;
+  word-wrap: break-word;
+  .information {
+    word-break: break-all;
+    overflow: hidden;
+    width: 30%;
+    height: 250px;
+    background: #dce1fd;
+    margin: 30px;
+    .name-information{
+      font-weight: bold;
+    }
+  }
+}
+footer {
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  flex-direction: row;
+  align-items: center;
+  .data-page{
+    margin-right: 40px;
+    height: 30px;
+  }
 }
