@@ -1,4 +1,4 @@
-const OUTPUT = 'app';
+const OUTPUT = 'dest';
 const STYLE_OUTPUT = 'styles.css';
 
 const gulp = require('gulp');
@@ -15,7 +15,7 @@ const config = require('./webpack.config.js');
 const browserSync = require('browser-sync').create();
 
 function cleanTask() {
-  return gulp.src('app/*.*', { read: false })
+  return gulp.src('dest/*.*', { read: false })
     .pipe(clean());
 }
 

@@ -15,10 +15,10 @@ body {
     line-height: 1.7;
     margin-left: 40px;
   }
-  .language{
+  .language {
     margin-right: 40px;
   }
-  .language-change{
+  .language-change {
     position: absolute;
     margin: 0;
   }
@@ -58,20 +58,21 @@ body {
     margin: 30px;
     border-color: black white;
     border-style: solid;
-    .name-information{
+    .name-information {
       margin: 15px;
       font-weight: bold;
     }
-    .text-information{
+    .text-information {
       height: 70%;
       margin: 15px;
       overflow: hidden;
     }
-    .text-information-more{
+    .text-information-more {
       margin: 15px;
     }
   }
 }
+
 @media screen and (max-width: 1000px) {
   #articles {
     width: 100%;
@@ -89,29 +90,34 @@ body {
       margin: 30px;
       border-color: black white;
       border-style: solid;
-      .name-information{
+      .name-information {
         margin: 15px;
         font-weight: bold;
       }
-      .text-information{
+      .text-information {
         height: 70%;
         margin: 15px;
       }
-      .text-information-more{
+      .text-information-more {
         margin: 15px;
       }
     }
   }
 }
+
 footer {
   display: flex;
-  position: relative;
-  bottom: 0;
-  right: 0;
+  justify-content: space-between;
   flex-direction: row;
   align-items: center;
-  .data-page{
-    margin-right: 40px;
-    height: 30px;
+  .footer-container {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    .data-page {
+      display: flex;
+      margin-right: 40px;
+      height: 30px;
+    }
   }
 }
