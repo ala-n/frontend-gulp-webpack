@@ -1,8 +1,8 @@
 {
   "name": "project",
+  "main": "server.js",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "gulp": "gulp",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -12,11 +12,17 @@
   "license": "ISC",
   "dependencies": {
     "@babel/core": "^7.0.1",
+    "babel-loader": "^8.0.2",
+    "connect-livereload": "^0.6.0",
+    "express": "^4.16.3",
+    "express-hbs": "^1.0.4",
     "gulp-babel": "^8.0.0",
     "gulp-clean": "^0.4.0",
     "gulp-clean-css": "^3.10.0",
     "gulp-concat": "^2.6.1",
+    "gulp-nodemon": "^2.2.1",
     "gulp-sourcemaps": "^2.6.4",
+    "hbs": "^4.0.1",
     "vinyl": "^2.2.0",
     "vinyl-named": "^1.1.0",
     "webpack-stream": "^5.1.1"

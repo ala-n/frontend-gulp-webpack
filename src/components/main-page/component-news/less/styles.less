@@ -2,8 +2,13 @@ body {
   font-family: 'Cabin', sans-serif;
   color: rgba(22, 0, 27, 0.9);
   background: #ffffff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
-
+main{
+  flex: 1 0 auto;
+}
 .header {
   display: flex;
   height: 5vw;
@@ -16,11 +21,12 @@ body {
     margin-left: 40px;
   }
   .language {
+    display: flex;
+    flex-direction: row;
     margin-right: 40px;
   }
   .language-change {
-    position: absolute;
-    margin: 0;
+    margin-left: 5px;
   }
   //.language-change:after {
   //  display: block;
@@ -28,12 +34,12 @@ body {
   //  clear: both;
   //  float: none;
   //}
-  .language-change > li {
-    display: none;
-  }
-  .language-change:hover > li {
-    display: block;
-  }
+  //.language-change > li {
+  //  display: none;
+  //}
+  //.language-change:hover > li {
+  //  display: block;
+  //}
   //.language-change > li > a {
   //  display: block;
   //  padding: 10px;
@@ -107,17 +113,13 @@ body {
 
 footer {
   display: flex;
-  justify-content: space-between;
   flex-direction: row;
-  align-items: center;
+  flex: 0 0 auto;
+  justify-content: flex-end;
   .footer-container {
-    position: absolute;
-    right: 0;
-    bottom: 0;
+    display: flex;
+    margin-right: 30px;
     .data-page {
-      display: flex;
-      margin-right: 40px;
-      height: 30px;
     }
   }
 }
