@@ -20,14 +20,6 @@ function cleanTask() {
         .pipe(clean());
 }
 
-// function buildHTML() {
-//   return gulp.src('src/index.html')
-//     .pipe(gulp.dest(OUTPUT))
-//     .pipe(browserSync.stream())
-//   // .pipe(gzip())
-//   // .pipe(gulp.dest(OUTPUT));
-// }
-
 function buildLess() {
     return gulp.src('src/components/bundles/bundle.less')
         .pipe(less())
@@ -35,8 +27,6 @@ function buildLess() {
         .pipe(minifyCss())
         .pipe(gulp.dest(OUTPUT))
         .pipe(browserSync.stream())
-    // .pipe(gzip())
-    // .pipe(gulp.dest(OUTPUT));
 }
 
 function webpackConfig() {
@@ -45,43 +35,25 @@ function webpackConfig() {
         .pipe(webpackStream(config))
         .pipe(gulp.dest(OUTPUT))
         .pipe(browserSync.stream())
-    // .pipe(gzip())
-    // .pipe(gulp.dest('app'))
 }
 
 gulp.task('clean', cleanTask);
 gulp.task('build-less', buildLess);
 gulp.task('build-js', webpackConfig);
-// gulp.task('build-html', buildHTML);
 
-const debugTask = gulp.parallel('build-less', 'build-js' /*, 'build-html'*/);
+const debugTask = gulp.parallel('build-less', 'build-js');
 
 function serveTask() {
-    // browserSync.init({
-    //     server: './' + OUTPUT,
-    //
-    // });
-
+    browserSync.init({
+        proxy: "localhost:3030",
+        browser: "chrome",
+    });
     nodemon({
         script: 'server.js',
-        browser: "chrome"
     })
         .on('restart', function () {
             console.log('restarted!')
         });
-
-
-    //lr.listen(35729);
-
-    // gulp.watch('server/**/*', function(event) {
-    //     var fileName = require('path').relative('3000', event.path);
-    //     lr.changed({
-    //         body: {
-    //             files: [fileName]
-    //         }
-    //     });
-    // });
-
     gulp.watch('src/components/bundles/*.js', gulp.series('build-js'));
     gulp.watch('src/components/bundles/*.less', gulp.series('build-less'));
     gulp.watch('src/components/component-news/less/*.less', gulp.series('build-less'));
