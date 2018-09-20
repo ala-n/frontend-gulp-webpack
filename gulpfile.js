@@ -1,4 +1,6 @@
-const OUTPUT = 'dest';
+const OUTPUT = 'dest/';
+const INPUT = 'src/bundles-content/';
+
 const STYLE_OUTPUT = 'styles.css';
 
 const gulp = require('gulp');
@@ -21,7 +23,7 @@ function cleanTask() {
 }
 
 function buildLess() {
-    return gulp.src('src/components/bundles/bundle.less')
+    return gulp.src(INPUT + '*.less')
         .pipe(less())
         .pipe(concat(STYLE_OUTPUT))
         .pipe(minifyCss())
@@ -30,7 +32,7 @@ function buildLess() {
 }
 
 function webpackConfig() {
-    return gulp.src('src/components/bundles/bundle.js')
+    return gulp.src(INPUT + '*.js')
         .pipe(named())
         .pipe(webpackStream(config))
         .pipe(gulp.dest(OUTPUT))
@@ -45,8 +47,12 @@ const debugTask = gulp.parallel('build-less', 'build-js');
 
 function serveTask() {
     browserSync.init({
-        proxy: "localhost:3030",
+        // proxy: "localhost:3030",
         browser: "chrome",
+        server: {
+            baseDir: "./test-pages",
+            directory: true
+        }
     });
     nodemon({
         script: 'server.js',
@@ -54,9 +60,9 @@ function serveTask() {
         .on('restart', function () {
             console.log('restarted!')
         });
-    gulp.watch('src/components/bundles/*.js', gulp.series('build-js'));
-    gulp.watch('src/components/bundles/*.less', gulp.series('build-less'));
-    gulp.watch('src/components/component-news/less/*.less', gulp.series('build-less'));
+    gulp.watch('src/!**/!*.js', {}, gulp.series('build-js'));
+    gulp.watch('src/components/bundles-content/!*.less', gulp.series('build-less'));
+    gulp.watch('src/components/component-news/less/!*.less', gulp.series('build-less'));
 }
 
 gulp.task('serve', serveTask);

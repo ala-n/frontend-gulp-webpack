@@ -1,1 +1,0 @@
-import '../main-page/component-news/js/index.js';
