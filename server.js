@@ -12,7 +12,7 @@ app.engine('.html', exphbs.express4({
 app.set('views', __dirname + '/test-pages/pages/');
 app.set('view engine', 'html');
 app.use(require('connect-livereload')());
-app.use(express.static('test-pages'));
+app.use(express.static('dest'));
 
 app.get('/', function (req, res) {
     res.render('main-page');

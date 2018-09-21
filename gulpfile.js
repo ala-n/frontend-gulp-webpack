@@ -47,12 +47,15 @@ const debugTask = gulp.parallel('build-less', 'build-js');
 
 function serveTask() {
     browserSync.init({
-        // proxy: "localhost:3030",
+        // proxy: {
+        //     target: 'localhost:3030',
+        //     ws: true
+        // },
         browser: "chrome",
         server: {
-            baseDir: "./test-pages",
-            directory: true
-        }
+            baseDir: './',
+            directory: true,
+        },
     });
     nodemon({
         script: 'server.js',
