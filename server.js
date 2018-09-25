@@ -4,10 +4,10 @@ const fs = require('fs');
 
 const express = require('express');
 const exphbs = require('express-hbs');
-const paths = require('./paths-hbs');
+const pathshbs = require('./paths/paths-hbs');
 
 const app = express();
-const pathsArray = paths.pathsArray;
+const pathsArray = pathshbs.pathsArray;
 
 const viewPath = path.join(__dirname, '/test-pages/pages/');
 

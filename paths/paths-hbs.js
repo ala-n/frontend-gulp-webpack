@@ -1,4 +1,4 @@
-const DIR_NAME_COMPONENTS = __dirname + '/src/components/';
+const DIR_NAME_COMPONENTS = __dirname + '../../src/components/';
 
 module.exports.pathsArray = [
     DIR_NAME_COMPONENTS + 'main-page/main',

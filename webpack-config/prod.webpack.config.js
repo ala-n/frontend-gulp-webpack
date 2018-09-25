@@ -1,6 +1,7 @@
 module.exports = {
-    context: __dirname + '/src/bundles-content',
-   // devtools: '',
+    context: __dirname + '/src/bundles-content/',
+    watch: false,
+    mode: 'production',
     output: {
         path: __dirname + '/dest',
         filename: '[name].js',

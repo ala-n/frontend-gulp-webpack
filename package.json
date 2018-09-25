@@ -11,8 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@babel/core": "^7.0.1",
-    "proxy-middleware": "^0.15.0"
+    "@babel/core": "^7.0.1"
   },
   "devDependencies": {
     "babel-loader": "^8.0.2",
@@ -23,6 +22,7 @@
     "gulp-clean": "^0.4.0",
     "gulp-clean-css": "^3.10.0",
     "gulp-concat": "^2.6.1",
+    "gulp-gzip": "^1.4.2",
     "gulp-less": "^4.0.1",
     "gulp-nodemon": "^2.2.1",
     "gulp-sourcemaps": "^2.6.4",
