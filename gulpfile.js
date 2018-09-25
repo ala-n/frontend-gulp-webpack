@@ -53,7 +53,7 @@ function serveTask() {
             target: 'localhost:3030',
             //ws: true
         },
-        // browser: "chrome",
+        browser: "chrome",
         // server: {
         //     baseDir: './',
         //     directory: true,
