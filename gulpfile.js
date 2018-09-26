@@ -13,6 +13,7 @@ const clean = require('gulp-clean');
 const named = require('vinyl-named');
 const minifyCss = require('gulp-clean-css');
 const nodemon = require('gulp-nodemon');
+const eslint = require('gulp-eslint');
 const prodConfig = require('./webpack-config/prod.webpack.config.js');
 const devConfig = require('./webpack-config/dev.webpack.config.js');
 
@@ -53,10 +54,18 @@ function devWebpackConfig() {
         .pipe(browserSync.stream())
 }
 
+function eslintTask() {
+    return gulp.src(['src/**/' + '*.js', '!node_modules/**'])
+        .pipe(eslint())
+        .pipe(eslint.format())
+        .pipe(eslint.failAfterError());
+}
+
 gulp.task('clean', cleanTask);
 gulp.task('build-less', buildLess);
 gulp.task('prod-build-js', prodWebpackConfig);
 gulp.task('dev-build-js', devWebpackConfig);
+gulp.task('eslint-task', eslintTask);
 
 const prodDebugTask = gulp.parallel('build-less', 'prod-build-js');
 const devDebugTask = gulp.parallel('build-less', 'dev-build-js');
@@ -75,13 +84,13 @@ function serveTask() {
         console.log('restarted!')
     });
 
-    gulp.watch('src/**/*.js', {}, gulp.series('dev-build-js'));
-    gulp.watch('src/**/*.less', gulp.series('build-less'));
+    gulp.watch('src/**/' + '*.js', { usePolling: true }, gulp.series('dev-build-js'));
+    gulp.watch('src/**/' + '*.less', { usePolling: true },  gulp.series('build-less'));
 }
 
 gulp.task('serve', serveTask);
 
-gulp.task('devBuild', gulp.series('clean', devDebugTask, 'serve'));
+gulp.task('devBuild', gulp.series('clean', 'eslint-task',  devDebugTask, 'serve'));
 gulp.task('prodBuild', gulp.series('clean', prodDebugTask, 'serve'));
 
 gulp.task('default', gulp.series('devBuild'));

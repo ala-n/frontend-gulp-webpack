@@ -25,8 +25,16 @@ function renderFile(res, pathFile) {
     res.render(pathFile.replace(/\.html$/i, '').replace(/^(\/|\\)/i, ''));
 }
 
+
 function renderDir(res, pathDir, fsPath) {
     const fileNames = fs.readdirSync(fsPath);
+    let indexRenderDir = null;
+    fileNames.forEach((fn, index) => {
+        if (/^_/.test(fn)) {
+            indexRenderDir = index;
+        }
+    });
+    fileNames.splice(indexRenderDir, 1);
     const links =  fileNames.map((fn) => ({
         name: fn,
         link: path.join(pathDir, fn)
@@ -39,7 +47,7 @@ function renderDir(res, pathDir, fsPath) {
 app.get('/*', function (req, res, next) {
     const pathname = url.parse(req.url).pathname;
 
-    if (/\.(js|css)$/.test(pathname)) {
+    if (/\.(js|css|ico)$/.test(pathname)) {
         next();
         return;
     }
