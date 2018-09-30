@@ -7,8 +7,12 @@
   width: 25.3%;
   height: 400px;
   position: absolute;
-  background-color: rgb(253, 253, 253);
-  box-shadow: 0.5px -0.5px 10px 1px rgba(108, 64, 34, 0.41);
+  background-color: rgb(255, 255, 255);
+  box-shadow:
+          0 1px 4px rgba(0, 0, 0, .3),
+          -23px 0 20px -23px rgba(0, 0, 0, .23),
+          23px 0 20px -23px rgba(0, 0, 0, .23),
+          0 0 40px rgba(0, 0, 0, .1) inset;
   .name-information {
     margin: 15px;
     font-weight: bold;
@@ -23,8 +27,12 @@
   }
 }
 .slide:hover {
-  box-shadow: 0.5px -0.5px 10px 3px rgba(105, 61, 33, 0.69);
-}
+  cursor: pointer;
+  box-shadow:
+          0 1px 4px rgba(0, 0, 0, .3),
+          -23px 0 20px -23px rgba(0, 0, 0, .8),
+          23px 0 20px -23px rgba(0, 0, 0, .8),
+          0 0 10px rgba(0, 0, 0, .1) inset;}
 
 .nav {
   text-align: center;
@@ -45,7 +53,7 @@
 
 .dots:hover {
   cursor: pointer;
-  background: rgba(203, 136, 71, 0.93);
+  background: rgba(169, 113, 59, 0.93);
 }
 
 #elem-news-1, #elem-news-2, #elem-news-3 {
