@@ -19,7 +19,7 @@ app.engine('.html', exphbs.express4({
 app.set('views', viewPath);
 app.set('view engine', 'html');
 
-app.use(express.static('dest'));
+app.use(express.static('dist'));
 
 function renderFile(res, pathFile) {
     res.render(pathFile.replace(/\.html$/i, '').replace(/^(\/|\\)/i, ''));

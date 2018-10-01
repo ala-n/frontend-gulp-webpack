@@ -20,7 +20,7 @@ const devConfig = require('./webpack-config/dev.webpack.config.js');
 const browserSync = require('browser-sync').create();
 
 function cleanTask() {
-    return gulp.src('dest/*.*', {read: false})
+    return gulp.src('dist/*.*', {read: false})
         .pipe(clean());
 }
 
