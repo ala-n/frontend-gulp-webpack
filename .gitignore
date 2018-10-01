@@ -7,5 +7,5 @@ node_modules
 target
 npm-debug.log
 .gitconfig
-dest
+dist
 .eslintrc.json

@@ -38,7 +38,7 @@ function buildLess() {
 }
 
 function prodWebpackConfig() {
-    return gulp.src(INPUT_DIR + '*.js')
+    return gulp.src(INPUT_DIR + '*.ts')
         .pipe(named())
         .pipe(webpackStream(prodConfig))
         .pipe(gulp.dest(OUTPUT_DIR))
@@ -47,7 +47,7 @@ function prodWebpackConfig() {
 }
 
 function devWebpackConfig() {
-    return gulp.src(INPUT_DIR + '*.js')
+    return gulp.src(INPUT_DIR + '*.ts')
         .pipe(named())
         .pipe(webpackStream(devConfig))
         .pipe(gulp.dest(OUTPUT_DIR))
@@ -55,7 +55,7 @@ function devWebpackConfig() {
 }
 
 function eslintTask() {
-    return gulp.src(['src/**/' + '*.js', '!node_modules/**'])
+    return gulp.src(['src/**/' + '*.ts', '!node_modules/**'])
         .pipe(eslint())
         .pipe(eslint.format())
         .pipe(eslint.failAfterError());
@@ -63,12 +63,12 @@ function eslintTask() {
 
 gulp.task('clean', cleanTask);
 gulp.task('build-less', buildLess);
-gulp.task('prod-build-js', prodWebpackConfig);
-gulp.task('dev-build-js', devWebpackConfig);
+gulp.task('prod-build-ts', prodWebpackConfig);
+gulp.task('dev-build-ts', devWebpackConfig);
 gulp.task('eslint-task', eslintTask);
 
-const prodDebugTask = gulp.parallel('build-less', 'prod-build-js');
-const devDebugTask = gulp.parallel('build-less', 'dev-build-js');
+const prodDebugTask = gulp.parallel('build-less', 'prod-build-ts');
+const devDebugTask = gulp.parallel('build-less', 'dev-build-ts');
 
 function serveTask() {
     browserSync.init({
@@ -84,7 +84,7 @@ function serveTask() {
         console.log('restarted!')
     });
 
-    gulp.watch('src/**/' + '*.js', { usePolling: true }, gulp.series('dev-build-js'));
+    gulp.watch('src/**/' + '*.ts', { usePolling: true }, gulp.series('dev-build-ts'));
     gulp.watch('src/**/' + '*.less', { usePolling: true },  gulp.series('build-less'));
 }
 

@@ -1,1 +1,1 @@
-import '../components/main-page/component-news/js/index.ts';
+import '../components/main-page/component-news/ts/index.ts';
