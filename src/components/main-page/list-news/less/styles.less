@@ -8,7 +8,7 @@
   height: 400px;
   position: absolute;
   background-color: rgb(255, 255, 255);
-  transition: 0.4s ease;
+  transition: 0.2s ease;
   box-shadow:
           0 1px 4px rgba(0, 0, 0, .3),
           -23px 0 20px -23px rgba(0, 0, 0, .23),
@@ -24,10 +24,15 @@
     overflow: hidden;
   }
   .text-information-more {
+    visibility: hidden;
     margin: 15px;
   }
 }
 .slide:hover {
+  .text-information-more {
+    visibility: visible;
+    margin: 15px;
+  }
   cursor: pointer;
   box-shadow:
           0 1px 4px rgba(0, 0, 0, .3),
