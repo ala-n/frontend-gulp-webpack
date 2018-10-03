@@ -1,7 +1,6 @@
 <div class="slider">
-    <!--<button class="arrow prev">⇦</button>-->
-    <div id="list-news">
-        <article class="information" id="news-1">
+    <ul class="slider-items">
+        <li class="news-item">
             <h2 class="name-information">Information!</h2>
             <div class="text-information">
                 <p class="">Sample setup with Gulp, Babel, Mocha and Webpack over ES6, transpiled to ES5 (source
@@ -15,9 +14,9 @@
                     lazy
                     loaded after the user presses a button).</p>
             </div>
-            <a href="" class="text-information-more">Read more</a>
-        </article>
-        <article class="information" id="news-2">
+            <a href="" class="text-information-more">Read more...</a>
+        </li>
+        <li class="news-item">
             <h2 class="name-information">Information!</h2>
             <div class="text-information">
                 <p class="">Sample setup with Gulp, Babel, Mocha and Webpack over ES6, transpiled to ES5 (source
@@ -29,9 +28,9 @@
                     lazy
                     loaded after the user presses a button).</p>
             </div>
-            <a href="" class="text-information-more">Read more</a>
-        </article>
-        <article class="information" id="news-3">
+            <a href="" class="text-information-more">Read more...</a>
+        </li>
+        <li class="news-item">
             <h2 class="name-information">Information!</h2>
             <div class="text-information">
                 <p class="">Sample setup with Gulp, Babel, Mocha and Webpack over ES6, transpiled to ES5 (source
@@ -41,13 +40,23 @@
                     All the code, Mocha tests and config files from Gulp and Webpack are ES6.
                 </p>
             </div>
-            <a href="" class="text-information-more">Read more</a>
-        </article>
-    </div>
-    <!--<button class="arrow next">⇨</button>-->
-    <div class="buttons-chose">
-        <div class="button-chose-1"></div>
-        <div class="button-chose-2"></div>
-        <div class="button-chose-3"></div>
+            <a href="" class="text-information-more">Read more...</a>
+        </li>
+    </ul>
+
+    <button class="controls arrow-previous">
+        <img class="img-arrow arrow-previous-img"
+             src="https://image.freepik.com/free-icon/no-translate-detected_318-112771.jpg"/>
+    </button>
+
+    <button class="controls arrow-next">
+        <img class="img-arrow arrow-previous-img"
+             src="https://image.freepik.com/free-icon/no-translate-detected_318-131657.jpg"/>
+    </button>
+
+    <div class="dots-wrapper">
+        <span class="dot" title="1"></span>
+        <span class="dot" title="2"></span>
+        <span class="dot" title="3"></span>
     </div>
 </div>

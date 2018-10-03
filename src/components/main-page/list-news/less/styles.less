@@ -1,70 +1,144 @@
+ul {
+  margin: 0;
+  padding: 0;
+}
+
 .slider {
+  position: relative;
   width: 27.3%;
   height: 400px;
   margin: 2% 3% 2% 3%;
   overflow: hidden;
-  .information {
-    width: 100%;
+  transition: 0.2s ease;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .3),
+  -23px 0 20px -26px rgba(0, 0, 0, .8),
+  23px 0 20px -26px rgba(0, 0, 0, .8),
+  0 0 40px rgba(0, 0, 0, .1) inset;
+  .news-item {
+    z-index: 1;
+    position: absolute;
     height: 400px;
-    background-color: rgb(255, 255, 255);
     transition: 0.2s ease;
+    background-color: rgb(255, 255, 255);
     box-shadow: 0 1px 4px rgba(0, 0, 0, .3),
     -23px 0 20px -26px rgba(0, 0, 0, .8),
     23px 0 20px -26px rgba(0, 0, 0, .8),
     0 0 40px rgba(0, 0, 0, .1) inset;
     .name-information {
-      margin: 10px 15px;
+      margin: 14px 40px;
       height: 30px;
       font-weight: bold;
     }
     .text-information {
-      height: 300px;
-      margin: 5px 20px;
+      height: 250px;
+      margin: 5px 40px;
       overflow: hidden;
     }
     .text-information-more {
       visibility: hidden;
     }
     &:hover {
-      .text-information-more {
-        float: right;
-        visibility: visible;
-        margin: 5px 30px;
-        height: 15px;
-      }
       cursor: pointer;
       box-shadow: 0 1px 4px rgba(0, 0, 0, .3),
       -23px 0 20px -23px rgba(0, 0, 0, .8),
       23px 0 20px -23px rgba(0, 0, 0, .8),
       0 0 10px rgba(0, 0, 0, .1) inset;
-    }
-  }
-  #list-news {
-    height: 400px;
-    article {
-      display: block;
-    }
-  }
-
-  .buttons-chose {
-    position: absolute;
-    width: 27.3%;
-    height: 50px;
-    margin: -60px auto 10px 0;
-    text-align: center;
-
-    .button-chose-1, .button-chose-2, .button-chose-3 {
-      display: inline-block;
-      vertical-align: middle;
-      width: 15px;
-      height: 15px;
-      background-color: rgba(238, 170, 68, 0.22);
-      margin-top: 16px;
-      margin-left: 18px;
-      cursor: pointer;
-      border-radius: 50%;
+      .text-information-more {
+        visibility: visible;
+        display: inline-block;
+        margin-top: 15px;
+        margin-left: 80%;
+        text-align: right;
+      }
     }
   }
 
 }
+
+.controls {
+  position: absolute;
+  z-index: 3;
+  background: rgba(255, 255, 255, 0);
+  opacity: 0.1;
+  height: 100%;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease-in;
+}
+.img-arrow {
+  //position: absolute;
+  //top: 170px;
+  width: 20px;
+  height: 20px;
+}
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+  z-index: 3;
+}
+
+.dots-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 4;
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 15px;
+}
+
+.active-dot, .dot:hover {
+  background-color: #717171;
+}
+
+.arrow-next {
+  right: 0;
+}
+
+.arrow-previous {
+  left: 0;
+}
+
+.arrow-previous-img {
+  left: 0;
+  padding-left: 10px;
+}
+
+.arrow-next-img {
+  right: 0;
+  padding-right: 10px;
+}
+
+.carousel-controls :focus {
+  outline: none;
+}
+
+
+.slider-items .parent-post-text::after {
+  height: 0.5em;
+}
+
+.controls:hover {
+  opacity: 1;
+}
+
+@media screen and (max-width: 980px) {
+  .slider {
+    width: 44%;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .slider {
+    width: 80%;
+  }
+}
+
 
