@@ -1,4 +1,4 @@
-.information {
+.container-news {
   width: 27.3%;
   height: 400px;
   background-color: rgb(255, 255, 255);
@@ -9,6 +9,19 @@
           -23px 0 20px -26px rgba(0, 0, 0, .8),
           23px 0 20px -26px rgba(0, 0, 0, .8),
           0 0 40px rgba(0, 0, 0, .1) inset;
+  &:hover{
+    cursor: pointer;
+    box-shadow:
+            0 1px 4px rgba(0, 0, 0, .3),
+            -23px 0 20px -23px rgba(0, 0, 0, .8),
+            23px 0 20px -23px rgba(0, 0, 0, .8),
+            0 0 10px rgba(0, 0, 0, .1) inset;
+    .text-information-more {
+      visibility: visible;
+      margin: 10px 20px;
+      float: right;
+    }
+  }
   .name-information {
     margin: 15px 40px;
     height: 30px;
@@ -22,31 +35,16 @@
   .text-information-more {
     visibility: hidden;
   }
-  &:hover{
-    .text-information-more {
-      visibility: visible;
-      display: inline-block;
-      margin-top: 15px;
-      margin-left: 80%;
-      text-align: right;
-    }
-    cursor: pointer;
-    box-shadow:
-            0 1px 4px rgba(0, 0, 0, .3),
-            -23px 0 20px -23px rgba(0, 0, 0, .8),
-            23px 0 20px -23px rgba(0, 0, 0, .8),
-            0 0 10px rgba(0, 0, 0, .1) inset;
-  }
 }
 
 @media screen and (max-width: 980px) {
-  .information {
+  .container-news {
     width: 44%;
   }
 }
 
 @media screen and (max-width: 700px) {
-  .information {
+  .container-news {
     width: 80%;
   }
 }
