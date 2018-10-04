@@ -67,8 +67,6 @@ ul {
   transition: opacity 0.2s ease-in;
 }
 .img-arrow {
-  //position: absolute;
-  //top: 170px;
   width: 20px;
   height: 20px;
 }
@@ -108,12 +106,12 @@ ul {
 
 .arrow-previous-img {
   left: 0;
-  padding-left: 10px;
+  padding-left: 8px;
 }
 
 .arrow-next-img {
   right: 0;
-  padding-right: 10px;
+  padding-right: 8px;
 }
 
 .carousel-controls :focus {
@@ -129,6 +127,9 @@ ul {
   opacity: 1;
 }
 
+.controls:focus {
+  outline: none;
+}
 @media screen and (max-width: 980px) {
   .slider {
     width: 44%;
