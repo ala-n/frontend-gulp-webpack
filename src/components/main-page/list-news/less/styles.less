@@ -10,6 +10,7 @@
   0 0 40px rgba(0, 0, 0, .1) inset;
   .information {
     z-index: 1;
+    width: 100%;
     position: absolute;
     height: 400px;
     transition: 0.2s ease;
@@ -46,7 +47,13 @@
     }
   }
 }
-
+.hide{
+  visibility: hidden;
+}
+.show{
+  visibility: visible;
+  z-index: 3;
+}
 .choose {
   padding: 0 3px;
   position: absolute;
@@ -64,8 +71,8 @@
     outline: none;
   }
   .img-arrow {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
   }
 }
 
@@ -76,32 +83,31 @@
 .previous {
   left: 0;
 }
-//.dot {
-//  cursor: pointer;
-//  height: 15px;
-//  width: 15px;
-//  margin: 0 2px;
-//  background-color: #bbb;
-//  border-radius: 50%;
-//  display: inline-block;
-//  transition: background-color 0.6s ease;
-//  z-index: 3;
-//}
-//
-//.dots-wrapper {
-//  width: 100%;
-//  display: flex;
-//  justify-content: center;
-//  z-index: 4;
-//  position: absolute;
-//  bottom: 0;
-//  margin-bottom: 15px;
-//}
-//
-//.active-dot, .dot:hover {
-//  background-color: #717171;
-//}
-//
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 3px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+  z-index: 3;
+}
+
+.dots-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 4;
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 25px;
+}
+
+.active-dot, .dot:hover {
+  background-color: #717171;
+}
 
 
 .carousel-controls :focus {

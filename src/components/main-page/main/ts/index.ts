@@ -27,28 +27,30 @@
 // document.querySelector('.arrow prev').addEventListener('click', showNews2);
 // (function () {
 
-/*function initCarouselDots() {
-    let currentSlide = 0;
-    const carousels:any = document.getElementsByClassName('slider');
-    for (let index = 0; index < carousels.length; index++) {
-        goToSlide(currentSlide, carousels[index].id, currentSlide);
+function initChoosing() {
+    let currentSlide : number = 0;
+    const sliders: any = document.getElementsByClassName('slider');
+    for (let index = 0; index < sliders.length; index++) {
+        goToSlide(currentSlide, index + 1);
     }
-}*/
-
-function getCurrentSlide(id: number) {
-    const currentSlider: any = document.getElementById(`${id}`+'-slider');
-    return currentSlider.querySelector('.dot').title - 1;
 }
 
-function goToSlide(currentSlide: number, id: number, nextSlide: number) {
-    // const currentCarousel = document.getElementById(`${id}`);
-    // const slides: any = currentCarousel.querySelector('.slider-items');
-    // console.log(slides);
-    // const navDots = currentCarousel.getElementsByClassName('carousel-dot');
-    // slides[currentSlide].classList.remove('showing');
-    // navDots[currentSlide].classList.remove('active-dot');
+function getCurrentSlide(id: number) {
+    const currentSlider: any = document.getElementById(`${id}` + '-slider');
+    return currentSlider.querySelector('.active-dot').title;
+}
+
+function goToSlide(numCurrentSlider: number, id: number) {
+    const currentSlider: any = document.getElementById(`${id}` + '-slider');
+    const slides: any = currentSlider.querySelectorAll('.information');
+    const dots = currentSlider.querySelectorAll('.dot');
+    console.log(numCurrentSlider);
+    dots[numCurrentSlider].classList.add('active-dot');
+    // slides[numCurrentSlider].classList.add('show');
+    (numCurrentSlider-1) ? slides[slides.length].classList.add('hide');
+
     // currentSlide = (nextSlide + slides.length) % slides.length;
-    // slides[currentSlide].classList.add('showing');
+
     // navDots[currentSlide].classList.add('active-dot');
 }
 
@@ -60,7 +62,7 @@ function clickPreviousSlide() {
             const target: any = event.target;
             const sliderId: number = target.closest('.slider').id.split('-')[0];
             const currentSlide: number = getCurrentSlide(sliderId);//номер слайда
-            // goToSlide(currentSlide, carouselId, currentSlide - 1);
+            goToSlide(currentSlide, sliderId);
         })
     }
 }
@@ -91,7 +93,7 @@ function clickPreviousSlide() {
 //     }
 // }
 //
-// initCarouselDots();
+initChoosing();
 clickPreviousSlide();
 // clickNextSlide();
 // clickDot();
