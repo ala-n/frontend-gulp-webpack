@@ -28,30 +28,44 @@
 // (function () {
 
 function initChoosing() {
-    let currentSlide : number = 0;
+    let numCurrentSlide: number = 0;
     const sliders: any = document.getElementsByClassName('slider');
     for (let index = 0; index < sliders.length; index++) {
-        goToSlide(currentSlide, index + 1);
+        goToSlide(numCurrentSlide, index + 1, '');
     }
 }
 
 function getCurrentSlide(id: number) {
     const currentSlider: any = document.getElementById(`${id}` + '-slider');
-    return currentSlider.querySelector('.active-dot').title;
+    return currentSlider.querySelector('.active-dot').title - 1;
 }
 
-function goToSlide(numCurrentSlider: number, id: number) {
+function goToSlide(numCurrentSlide: number, id: number, show: any) {
     const currentSlider: any = document.getElementById(`${id}` + '-slider');
     const slides: any = currentSlider.querySelectorAll('.information');
     const dots = currentSlider.querySelectorAll('.dot');
-    console.log(numCurrentSlider);
-    dots[numCurrentSlider].classList.add('active-dot');
-    // slides[numCurrentSlider].classList.add('show');
-    (numCurrentSlider-1) ? slides[slides.length].classList.add('hide');
+    //const previousArrows = document.querySelectorAll('.previous');
+    console.log(numCurrentSlide);
 
-    // currentSlide = (nextSlide + slides.length) % slides.length;
-
-    // navDots[currentSlide].classList.add('active-dot');
+    console.log(show.className);
+    switch (show.className) {
+        case 'choose previous': {
+            dots[numCurrentSlide].classList.remove('active-dot');
+            slides[numCurrentSlide].classList.remove('show-elem');
+            dots[numCurrentSlide - 1].classList.add('active-dot');
+            slides[numCurrentSlide - 1].classList.add('show-elem');
+        }
+        case 'choose next': {
+            dots[numCurrentSlide].classList.remove('active-dot');
+            slides[numCurrentSlide].classList.remove('show-elem');
+            dots[numCurrentSlide + 1].classList.add('active-dot');
+            slides[numCurrentSlide + 1].classList.add('show-elem');
+        }
+        default:
+            dots[numCurrentSlide].classList.add('active-dot');
+            slides[numCurrentSlide].classList.add('show-elem');
+        //previousArrows[id].classList.add('not-choose');
+    }
 }
 
 
@@ -61,23 +75,23 @@ function clickPreviousSlide() {
         previousArrows[index].addEventListener('click', (event) => {
             const target: any = event.target;
             const sliderId: number = target.closest('.slider').id.split('-')[0];
-            const currentSlide: number = getCurrentSlide(sliderId);//номер слайда
-            goToSlide(currentSlide, sliderId);
+            const numCurrentSlide: number = getCurrentSlide(sliderId);//номер слайда
+            goToSlide(numCurrentSlide, sliderId, previousArrows[index]);
         })
     }
 }
 
-// function clickNextSlide() {
-//     const nextArrows = document.getElementsByClassName('arrow-next-btn');
-//     for (let index = 0; index < nextArrows.length; index++) {
-//         nextArrows[index].addEventListener('click', (event) => {
-//             const target:any = event.target;
-//             const carouselId = target.closest('slider').id;
-//             const currentSlide = getCurrentSlide(carouselId);
-//             goToSlide(currentSlide, carouselId, currentSlide + 1);
-//         });
-//     }
-// }
+function clickNextSlide() {
+    const previousArrows = document.querySelectorAll('.next');
+    for (let index = 0; index < previousArrows.length; index++) {
+        previousArrows[index].addEventListener('click', (event) => {
+            const target: any = event.target;
+            const sliderId: number = target.closest('.slider').id.split('-')[0];
+            const numCurrentSlide: number = getCurrentSlide(sliderId);//номер слайда
+            goToSlide(numCurrentSlide, sliderId, previousArrows[index]);
+        })
+    }
+}
 //
 // function clickDot() {
 //     const dotsArray = document.getElementsByClassName('dots-wrapper');
@@ -95,6 +109,6 @@ function clickPreviousSlide() {
 //
 initChoosing();
 clickPreviousSlide();
-// clickNextSlide();
+clickNextSlide();
 // clickDot();
 // }());

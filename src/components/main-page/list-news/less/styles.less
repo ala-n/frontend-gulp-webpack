@@ -9,6 +9,7 @@
   23px 0 20px -26px rgba(0, 0, 0, .8),
   0 0 40px rgba(0, 0, 0, .1) inset;
   .information {
+    visibility: hidden;
     z-index: 1;
     width: 100%;
     position: absolute;
@@ -46,13 +47,12 @@
       visibility: hidden;
     }
   }
-}
-.hide{
-  visibility: hidden;
-}
-.show{
-  visibility: visible;
-  z-index: 3;
+  .hide-elem{
+    visibility: hidden;
+  }
+  .show-elem{
+    visibility: visible;
+  }
 }
 .choose {
   padding: 0 3px;
