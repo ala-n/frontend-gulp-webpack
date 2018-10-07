@@ -9,7 +9,6 @@
   23px 0 20px -26px rgba(0, 0, 0, .8),
   0 0 40px rgba(0, 0, 0, .1) inset;
   .information {
-    visibility: hidden;
     z-index: 1;
     width: 100%;
     position: absolute;
@@ -47,11 +46,8 @@
       visibility: hidden;
     }
   }
-  .hide-elem{
-    visibility: hidden;
-  }
-  .show-elem{
-    visibility: visible;
+  .show-slide{
+    z-index: 2;
   }
 }
 .choose {
@@ -79,7 +75,9 @@
 .next {
   right: 0;
 }
-
+.not-next:hover, .not-prev:hover{
+  opacity: 0.2;
+}
 .previous {
   left: 0;
 }
@@ -105,7 +103,7 @@
   margin-bottom: 25px;
 }
 
-.active-dot, .dot:hover {
+.active, .dot:hover {
   background-color: #717171;
 }
 
