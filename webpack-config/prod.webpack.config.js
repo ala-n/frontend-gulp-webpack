@@ -1,21 +1,25 @@
 module.exports = {
-  context: __dirname + '/src/bundles-content/',
-  watch: false,
-  mode: 'production',
-  output: {
-    path: __dirname + '/dist',
-    filename: '[name].js',
-  },
-  module: {
-    rules: [
-      {
-        test: /\.ts?$/,
-        use: ['ts-loader'],
-        exclude: /node_modules/
-      }
-    ]
-  },
-  resolve: {
-    extensions: ['.ts', '.js']
-  },
+    context: __dirname + '/src/bundles-content/',
+    watch: false,
+    mode: 'production',
+    output: {
+        path: __dirname + '/dist',
+        filename: '[name].js',
+    },
+    module: {
+        rules: [
+            {
+                test: /\.ts?$/,
+                loader: 'ts-loader',
+                exclude: /node_modules/,
+                options: {
+                    // disable type checker - we will use it in fork plugin
+                    transpileOnly: true
+                }
+            }
+        ]
+    },
+    resolve: {
+        extensions: ['.ts', '.js']
+    },
 };

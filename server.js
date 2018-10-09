@@ -7,7 +7,7 @@ const exphbs = require('express-hbs');
 const pathshbs = require('./paths/paths-hbs');
 
 const app = express();
-const pathsArray = pathshbs.pathsArray;
+const pathsArray = pathshbs.pathsArray.map(src => path.join(__dirname, src));
 
 const viewPath = path.join(__dirname, '/test-pages/pages/');
 
@@ -47,7 +47,7 @@ function renderDir(res, pathDir, fsPath) {
 app.get('/*', function (req, res, next) {
     const pathname = url.parse(req.url).pathname;
 
-    if (/\.(js|css|ico)$/.test(pathname)) {
+    if (/\.(js|css|ico|png|jpg|gif|woff|woff2)$/.test(pathname)) {
         next();
         return;
     }
