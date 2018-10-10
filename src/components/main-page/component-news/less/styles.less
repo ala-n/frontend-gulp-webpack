@@ -1,21 +1,26 @@
+.shadow-border() {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .3),
+  -23px 0 20px -26px rgba(0, 0, 0, .8),
+23px 0 20px -26px rgba(0, 0, 0, .8),
+0 0 40px rgba(0, 0, 0, .1) inset;
+}
+.shadow-border-hover() {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .3),
+  -23px 0 20px -23px rgba(0, 0, 0, .8),
+  23px 0 20px -23px rgba(0, 0, 0, .8),
+  0 0 10px rgba(0, 0, 0, .1) inset;
+}
+
 .container-news {
   width: 27.3%;
   height: 400px;
   background-color: rgb(255, 255, 255);
   margin: 2% 3% 2% 3%;
   transition: .2s ease;
-  box-shadow:
-          0 1px 4px rgba(0, 0, 0, .3),
-          -23px 0 20px -26px rgba(0, 0, 0, .8),
-          23px 0 20px -26px rgba(0, 0, 0, .8),
-          0 0 40px rgba(0, 0, 0, .1) inset;
+  .shadow-border;
   &:hover{
     cursor: pointer;
-    box-shadow:
-            0 1px 4px rgba(0, 0, 0, .3),
-            -23px 0 20px -23px rgba(0, 0, 0, .8),
-            23px 0 20px -23px rgba(0, 0, 0, .8),
-            0 0 10px rgba(0, 0, 0, .1) inset;
+   .shadow-border-hover;
     .text-information-more {
       visibility: visible;
       margin: 10px 20px;
