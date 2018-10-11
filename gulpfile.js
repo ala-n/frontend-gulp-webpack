@@ -56,9 +56,7 @@ function devWebpackConfig() {
 
 gulp.task('tslint', () =>
     gulp.src(['src/**/' + '*.ts', '!node_modules/**'])
-        .pipe(tslint({
-            formatter: "prose"
-        }))
+        .pipe(tslint())
         .pipe(tslint.report())
 );
 gulp.task('clean', cleanTask);

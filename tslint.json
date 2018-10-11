@@ -10,8 +10,9 @@
   "jsRules": {},
   "rules": {
     "quotemark" : [true, "single"],
-    "max-line-length": [true, 150],
-    "member-access": [true, "no-public"]
+    "max-line-length": [true, 200],
+    "member-access": [true, "no-public"],
+    "no-console": false
     //"function-paren-newline": ["error", "consistent"],
     //"object-curly-newline": ["error", { "consistent": true }],
     //"no-constant-condition": true
