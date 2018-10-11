@@ -1,6 +1,7 @@
 class Carousel extends HTMLElement {
 
     constructor() {
+
         super();
     }
 
@@ -8,19 +9,24 @@ class Carousel extends HTMLElement {
         this.bindEvents();
     }
 
-    // Simple get
-    get value() {
-        return this.getAttribute('value');
+    get dotsArray() {
+        return document.querySelectorAll('.dots-wrapper');
     }
-    set value(val) {
-        this.setAttribute('value', val);
+
+    get nextArrows() {
+        return document.querySelectorAll('.next');
+    }
+
+    get previousArrows() {
+        return document.querySelectorAll('.previous');
     }
 
     bindEvents() {
         this.clickPreviousSlide();
         this.clickNextSlide();
-        this. clickDot();
+        this.clickDot();
     }
+
     getNumCurrentSlide(lengthSlidesList: number, activeDot: number): number {
         return lengthSlidesList - activeDot;
     }
@@ -51,42 +57,49 @@ class Carousel extends HTMLElement {
         dots[activeDot - 1].classList.remove('active');
     }
 
-    getSlide(event: any, showing: string): void {
-        const slider: HTMLDivElement = event.target.closest('.slider');
-        const slides: NodeListOf<Element> = slider.querySelectorAll('.information');
+    goToSlide(event: any, showing: string): void {
+        const slider: HTMLDivElement = event.target.closest('[data-slide-container]'); // '[data-slide-container]'
+        const slides: NodeListOf<Element> = slider.querySelectorAll('.information'); // '[data-slide]'
         const dots: NodeListOf<Element> = slider.querySelectorAll('.dot');
         const activeDot: HTMLDivElement = slider.querySelector('.active');
         const numCurrentSlide: number = this.getNumCurrentSlide(slides.length, +activeDot.title);
         this.hideCurrentSlide(numCurrentSlide, slides, dots, +activeDot.title);
-        this.showNewCurrentSlide( this.getNewCurrentSlide(showing, numCurrentSlide, slides.length, event.target.title), slides, dots, slides.length);
+        this.showNewCurrentSlide(this.getNewCurrentSlide(showing, numCurrentSlide, slides.length, event.target.title), slides, dots, slides.length);
     }
 
-
     clickPreviousSlide() {
-        const previousArrows = document.querySelectorAll('.previous');
-        for (let index = 0; index < previousArrows.length; index++) {
-            previousArrows[index].addEventListener('click', (event: any) => {
-                this.getSlide(event, 'prev');
-            })
+        for (const previousArrows of this.previousArrows) {
+            previousArrows.addEventListener('click', (event: any) => {
+                this.goToSlide(event, 'prev');
+                // this.goToSlide( (this.current - 1) % this.count );
+            });
         }
     }
 
     clickNextSlide() {
-        const nextArrows = document.querySelectorAll('.next');
-        for (let index = 0; index < nextArrows.length; index++) {
-            nextArrows[index].addEventListener('click', (event: any) => {
-                this.getSlide(event, 'next');
-            })
+        for (const nextArrows of this.nextArrows) {
+            nextArrows.addEventListener('click', (event: any) => {
+                this.goToSlide(event, 'next');
+            });
         }
     }
 
     clickDot() {
-        const dotsArray = document.querySelectorAll('.dots-wrapper');
-        for (let index = 0; index < dotsArray.length; index++) {
-            dotsArray[index].addEventListener('click', (event: any) => {
-                this.getSlide(event, 'dot');
+        for (const dotsArray of this.dotsArray) {
+            dotsArray.addEventListener('click', (event: any) => {
+                this.goToSlide(event, 'dot');
             });
         }
     }
+
+    // triggerSlideCHange() {
+    //     const event = new Event('sc-slidechanged', {
+    //         bubbles: true,
+    //     });
+    //     this.dispatchEvent(event);
+    // }
+
 }
+
 customElements.define('slide-carousel', Carousel);
+export default customElements;

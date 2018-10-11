@@ -13,7 +13,7 @@ const clean = require('gulp-clean');
 const named = require('vinyl-named');
 const minifyCss = require('gulp-clean-css');
 const nodemon = require('gulp-nodemon');
-const eslint = require('gulp-eslint');
+const tslint = require("gulp-tslint");
 const prodConfig = require('./webpack-config/prod.webpack.config.js');
 const devConfig = require('./webpack-config/dev.webpack.config.js');
 
@@ -54,18 +54,17 @@ function devWebpackConfig() {
         .pipe(browserSync.stream())
 }
 
-function eslintTask() {
-    return gulp.src(['src/**/' + '*.ts', '!node_modules/**'])
-        .pipe(eslint())
-        .pipe(eslint.format())
-        .pipe(eslint.failAfterError());
-}
-
+gulp.task('tslint', () =>
+    gulp.src(['src/**/' + '*.ts', '!node_modules/**'])
+        .pipe(tslint({
+            formatter: "prose"
+        }))
+        .pipe(tslint.report())
+);
 gulp.task('clean', cleanTask);
 gulp.task('build-less', buildLess);
 gulp.task('prod-build-ts', prodWebpackConfig);
 gulp.task('dev-build-ts', devWebpackConfig);
-gulp.task('eslint-task', eslintTask);
 
 const prodDebugTask = gulp.parallel('build-less', 'prod-build-ts');
 const devDebugTask = gulp.parallel('build-less', 'dev-build-ts');
@@ -90,7 +89,7 @@ function serveTask() {
 
 gulp.task('serve', serveTask);
 
-gulp.task('devBuild', gulp.series('clean', 'eslint-task',  devDebugTask, 'serve'));
+gulp.task('devBuild', gulp.series('clean', 'tslint',  devDebugTask, 'serve'));
 gulp.task('prodBuild', gulp.series('clean', prodDebugTask, 'serve'));
 
 gulp.task('default', gulp.series('devBuild'));

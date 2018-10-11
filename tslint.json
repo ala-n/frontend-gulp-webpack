@@ -9,11 +9,12 @@
   ],
   "jsRules": {},
   "rules": {
-    "no-undef": "off",
-    "import/no-named-as-default":0,
-    "function-paren-newline": ["error", "consistent"],
-    "object-curly-newline": ["error", { "consistent": true }],
-    "no-constant-condition": true
+    "quotemark" : [true, "single"],
+    "max-line-length": [true, 150],
+    "member-access": [true, "no-public"]
+    //"function-paren-newline": ["error", "consistent"],
+    //"object-curly-newline": ["error", { "consistent": true }],
+    //"no-constant-condition": true
   },
   "rulesDirectory": []
 }
