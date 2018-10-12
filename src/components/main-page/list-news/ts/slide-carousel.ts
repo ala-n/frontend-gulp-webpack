@@ -10,6 +10,7 @@ class Carousel extends HTMLElement {
 
     bindEvents() {
         this.goToSlide();
+        this.triggerSlideChange();
     }
 
     getNumCurrentSlide(lengthSlidesList: number, activeDot: number): number {
@@ -45,7 +46,6 @@ class Carousel extends HTMLElement {
     goToSlide(): void {
         const slider: HTMLDivElement = document.querySelector('[data-slide-container]'); // '[data-slide-container]'
         slider.addEventListener('click', (event: any) => {
-            // console.log(event.target.title);
             const showing = event.target.title.length ? 'dot' : event.target.closest('.choose').getAttribute('data-target');
             const slides: NodeListOf<Element> = slider.querySelectorAll('[data-slide-item]'); // '[data-slide-item]'
             const dots: NodeListOf<Element> = slider.querySelectorAll('.dot');
@@ -56,22 +56,14 @@ class Carousel extends HTMLElement {
         });
     }
 
-    // clickDot() {
-    //     for (const dotsArray of this.dotsArray) {
-    //         dotsArray.addEventListener('click', (event: any) => {
-    //             this.goToSlide(event, 'dot');
-    //         });
-    //     }
-    // }
-
-    // triggerSlideCHange() {
-    //     const event = new Event('sc-slidechanged', {
-    //         bubbles: true,
-    //     });
-    //     this.dispatchEvent(event);
-    // }
+    triggerSlideChange() {
+        const event = new CustomEvent('sc-slide-changed', {
+            bubbles: true,
+            detail: '2',
+        });
+        this.dispatchEvent(event);
+    }
 
 }
 
 customElements.define('slide-carousel', Carousel);
-
