@@ -4,20 +4,28 @@ class Carousel extends HTMLElement {
         super();
     }
 
+    get getSlidesList(): NodeListOf<Element> {
+        return this.querySelectorAll('[data-slide-item]');
+    }
+
+    get getLengthSlidesList(): number {
+        return this.getSlidesList.length;
+    }
+
+    get getNumCurrentSlide(): number {
+        const activeDot: HTMLDivElement = this.querySelector('.active');
+        return this.getLengthSlidesList - (+activeDot.title);
+    }
+
     connectedCallback() {
         this.bindEvents();
     }
 
     bindEvents() {
         this.goToSlide();
-        this.triggerSlideChange();
     }
 
-    getNumCurrentSlide(lengthSlidesList: number, activeDot: number): number {
-        return lengthSlidesList - activeDot;
-    }
-
-    getNewCurrentSlide(showing: string, numCurrentSlide: number, lengthSlidesList: number, activeDot: number): number {
+    getNewCurrentSlide(showing: string, numCurrentSlide: number, lengthSlidesList: number): number {
         let nextSlide: number = 0;
         switch (showing) {
             case 'prev':
@@ -26,44 +34,40 @@ class Carousel extends HTMLElement {
             case 'next':
                 nextSlide = numCurrentSlide - 1;
                 break;
-            case 'dot':
-                nextSlide = lengthSlidesList - activeDot;
-                break;
         }
         return (nextSlide + lengthSlidesList) % lengthSlidesList;
     }
 
-    showNewCurrentSlide(currentSlide: number, slides: NodeListOf<Element>, dots: NodeListOf<Element>, lengthSlidesList: number): void {
-        slides[currentSlide].classList.add('show-slide');
-        dots[lengthSlidesList - currentSlide - 1].classList.add('active');
+    showNewCurrentSlide(numCurrentSlide: number): void {
+        this.getSlidesList[numCurrentSlide].classList.add('show-slide');
     }
 
-    hideCurrentSlide(numCurrentSlide: number, slides: NodeListOf<Element>, dots: NodeListOf<Element>, activeDot: number): void {
-        slides[numCurrentSlide].classList.remove('show-slide');
-        dots[activeDot - 1].classList.remove('active');
+    hideCurrentSlide(numCurrentSlide: number): void {
+        this.getSlidesList[numCurrentSlide].classList.remove('show-slide');
     }
 
     goToSlide(): void {
-        const slider: HTMLDivElement = document.querySelector('[data-slide-container]'); // '[data-slide-container]'
-        slider.addEventListener('click', (event: any) => {
-            const showing = event.target.title.length ? 'dot' : event.target.closest('.choose').getAttribute('data-target');
-            const slides: NodeListOf<Element> = slider.querySelectorAll('[data-slide-item]'); // '[data-slide-item]'
-            const dots: NodeListOf<Element> = slider.querySelectorAll('.dot');
-            const activeDot: HTMLDivElement = slider.querySelector('.active');
-            const numCurrentSlide: number = this.getNumCurrentSlide(slides.length, +activeDot.title);
-            this.hideCurrentSlide(numCurrentSlide, slides, dots, +activeDot.title);
-            this.showNewCurrentSlide(this.getNewCurrentSlide(showing, numCurrentSlide, slides.length, event.target.title), slides, dots, slides.length);
+        this.addEventListener('click', (event: any) => {
+            const showing = event.target.closest('.choose');
+            if (showing) {
+                const numCurrentSlide: number = this.getNumCurrentSlide;
+                this.hideCurrentSlide(numCurrentSlide);
+                const newCurrentSlide = this.getNewCurrentSlide(showing.getAttribute('data-target'), numCurrentSlide, this.getLengthSlidesList);
+                this.showNewCurrentSlide(newCurrentSlide);
+                this.triggerSlideChange(newCurrentSlide);
+            }
         });
     }
 
-    triggerSlideChange() {
+    triggerSlideChange(numNewSlide: number) {
         const event = new CustomEvent('sc-slide-changed', {
             bubbles: true,
-            detail: '2',
+            detail: {
+                numNextSlide: `${numNewSlide}`,
+            },
         });
         this.dispatchEvent(event);
     }
-
 }
 
 customElements.define('slide-carousel', Carousel);

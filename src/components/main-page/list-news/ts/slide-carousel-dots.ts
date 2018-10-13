@@ -1,74 +1,73 @@
 class SlideCarouselDots extends HTMLElement {
-
     constructor() {
         super();
-    }
-
-    connectedCallback() {
-        this.bindEvents();
     }
 
     get currentCarousel(): HTMLElement {
         return this.parentElement;
     }
 
-    get slides(): NodeListOf<HTMLDivElement> {
-        return this.currentCarousel.querySelectorAll('.carousel-items .carousel-item') as NodeListOf<HTMLDivElement>;
+    get getActiveDot(): number {
+        const activeDot: HTMLDivElement = this.querySelector('.active');
+        return +activeDot.title;
+    }
+
+    get getDotsList(): NodeListOf<Element> {
+        return this.querySelectorAll('.dot');
+    }
+
+    get getLengthDotsList(): number {
+        return this.getDotsList.length;
+    }
+
+    connectedCallback() {
+        this.drawDots();
+        this.bindEvents();
     }
 
     bindEvents() {
+        this.onArrowsClick();
         this.goToDots();
-        this.clickDot();
     }
 
-    clickDot(): void {
+    onArrowsClick(): void {
         this.currentCarousel.addEventListener('sc-slide-changed', (event: any) => {
-            console.log(event.detail, 4);
+            this.hideCurrentDot();
+            this.showNewCurrentDot(event.detail.numNextSlide);
         });
     }
 
-
-    getNumCurrentSlide(lengthSlidesList: number, activeDot: number): number {
-        return lengthSlidesList - activeDot;
+    hideCurrentDot(): void {
+        this.getDotsList[this.getActiveDot - 1].classList.remove('active');
     }
 
-    hideCurrentSlide(numCurrentSlide: number, slides: NodeListOf<Element>, dots: NodeListOf<Element>, activeDot: number): void {
-        slides[numCurrentSlide].classList.remove('show-slide');
-        dots[activeDot - 1].classList.remove('active');
+    showNewCurrentDot(currentSlide: number): void {
+        this.getDotsList[this.getLengthDotsList - currentSlide - 1].classList.add('active');
     }
 
-    getNewCurrentSlide(numCurrentSlide: number, lengthSlidesList: number, activeDot: number): number {
-        const nextSlide: number = lengthSlidesList - activeDot;
-        return (nextSlide + lengthSlidesList) % lengthSlidesList;
-    }
-
-    showNewCurrentSlide(currentSlide: number, slides: NodeListOf<Element>, dots: NodeListOf<Element>, lengthSlidesList: number): void {
-        slides[currentSlide].classList.add('show-slide');
-        dots[lengthSlidesList - currentSlide - 1].classList.add('active');
+    getNewCurrentSlide(newActiveDot: number): number {
+        const nextSlide: number = this.getLengthDotsList - newActiveDot;
+        return (nextSlide + this.getLengthDotsList) % this.getLengthDotsList;
     }
 
     goToDots(): void {
-        const dots: HTMLDivElement = document.querySelector('[data-dots-container]'); // '[data-slide-container]'
-        dots.addEventListener('click', (event: any) => {
-            // console.log(event.target.title);
-            const slider: HTMLDivElement = event.target.closest('[data-slide-container]'); // '[data-slide-container]'
-            const slides: NodeListOf<Element> = slider.querySelectorAll('[data-slide-item]'); // '[data-slide-item]'
-            const dotsArray: NodeListOf<Element> = slider.querySelectorAll('.dot');
-            const activeDot: HTMLDivElement = dots.querySelector('.active');
-            const numCurrentSlide: number = this.getNumCurrentSlide(slides.length, +activeDot.title);
-            this.hideCurrentSlide(numCurrentSlide, slides, dotsArray, +activeDot.title);
-            this.showNewCurrentSlide(this.getNewCurrentSlide(numCurrentSlide, slides.length, event.target.title), slides, dotsArray, slides.length);
+        this.addEventListener('click', (event: any) => {
+            const slidesList = this.currentCarousel.querySelectorAll('[data-slide-item]');
+            slidesList[this.getNewCurrentSlide(event.target.title)].classList.remove('show-slide');
+            this.hideCurrentDot();
+            this.showNewCurrentDot(this.getNewCurrentSlide(event.target.title));
+            slidesList[this.getNewCurrentSlide(event.target.title)].classList.add('show-slide');
         });
     }
 
-    // drawDots() {
-    //     for (let index = 0; index < this.slides.length; index++) {
-    //         const dot = document.createElement('span');
-    //         dot.className = index === 0 ? 'carousel-dot active-dot' : 'carousel-dot';
-    //         dot.setAttribute('title', `${index + 1}`);
-    //         this.appendChild(dot);
-    //     }
-    // }
+    drawDots() {
+        const lengthSlidesList = this.currentCarousel.querySelectorAll('[data-slide-item]').length;
+        for (let index = 0; index < lengthSlidesList; index++) {
+            const dot = document.createElement('span');
+            dot.className = index ? 'dot' : 'dot active';
+            dot.setAttribute('title', `${index + 1}`);
+            this.appendChild(dot);
+        }
+    }
 }
-
 customElements.define('slide-carousel-dots', SlideCarouselDots);
