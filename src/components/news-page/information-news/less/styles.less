@@ -1,7 +1,10 @@
 .news-content {
   flex: 1 0 auto;
   width: 100%;
-  background-color: rgb(255, 255, 255);
+  //background-color: rgb(255, 255, 255);
+  .information{
+    position:  absolute;
+  }
   .name-information {
     margin: 10px 15px;
     height: 30px;
@@ -15,5 +18,14 @@
   }
   .text-information-more {
     visibility: hidden;
+  }
+  .image-news{
+    width: 100%;
+    height: 100%;
+    background:  url(https://cdn.pixabay.com/photo/2015/06/08/15/11/typewriter-801921_960_720.jpg) top left/cover no-repeat;
+    opacity: .25;
+    position:  fixed;
+    z-index: -1;
+    margin-top: -20px;
   }
 }
