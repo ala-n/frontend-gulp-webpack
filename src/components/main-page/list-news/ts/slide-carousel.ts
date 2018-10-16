@@ -4,12 +4,12 @@ class Carousel extends HTMLElement {
         super();
     }
 
-    get getSlidesList(): NodeListOf<Element> {
+    get slidesList(): NodeListOf<Element> {
         return this.querySelectorAll('[data-slide-item]');
     }
 
     get getLengthSlidesList(): number {
-        return this.getSlidesList.length;
+        return this.slidesList.length;
     }
 
     get getNumCurrentSlide(): number {
@@ -39,11 +39,11 @@ class Carousel extends HTMLElement {
     }
 
     showNewCurrentSlide(numCurrentSlide: number): void {
-        this.getSlidesList[numCurrentSlide].classList.add('show-slide');
+        this.slidesList[numCurrentSlide].classList.add('show-slide');
     }
 
     hideCurrentSlide(numCurrentSlide: number): void {
-        this.getSlidesList[numCurrentSlide].classList.remove('show-slide');
+        this.slidesList[numCurrentSlide].classList.remove('show-slide');
     }
 
     goToSlide(): void {
