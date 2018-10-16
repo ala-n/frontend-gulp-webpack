@@ -12,7 +12,15 @@
     "quotemark" : [true, "single"],
     "max-line-length": [true, 200],
     "member-access": [true, "no-public"],
-    "no-console": false
+    "no-console": false,
+    "adjacent-overload-signatures": true,
+    "trailing-comma": false,
+    "new-parens": true,
+    "no-arg": true,
+    "no-bitwise": true,
+    "no-conditional-assignment": true,
+    "no-consecutive-blank-lines": false,
+    "indent": false
   },
   "rulesDirectory": []
 }

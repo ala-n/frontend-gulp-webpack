@@ -1,4 +1,6 @@
 class SlideCarouselDots extends HTMLElement {
+    // TODO: make it easier :)
+
     constructor() {
         super();
     }
