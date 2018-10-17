@@ -1,4 +1,8 @@
-class Carousel extends HTMLElement {
+class SlideCarousel extends HTMLElement {
+
+	static get is() {
+		return 'slide-carousel';
+	}
 
 	constructor() {
 		super();
@@ -13,82 +17,52 @@ class Carousel extends HTMLElement {
 		return this.slides.length;
 	}
 
-	// TODO: rewrite to determine current slide from carousel only (not dots or smth else)
-	private get activeIndex(): number {
-		const activeSlide: HTMLDivElement = this.querySelector('.active-slide');
-		return this.count - (+activeSlide.title);
+	get activeIndex(): number {
+		return this.slides.findIndex((el) => el.classList.contains('active-slide'));
+	}
+
+	set activeIndex(index: number) {
+		this.slides[this.activeIndex].classList.remove('active-slide');
+		index = (index + this.count) % this.count;
+		this.slides[index].classList.add('active-slide');
+		this.triggerSlideChange();
 	}
 
 	connectedCallback() {
-		this.goToSlide();
 		this.bindEvents();
 	}
 
-	onClick(event: MouseEvent) {
+	bindEvents() {
+		this.addEventListener('click', (event) => this._onClick(event));
+	}
+
+	_onClick(event: MouseEvent) {
 		const target = event.target as HTMLElement;
-		const numCurrentSlide: number = this.activeIndex;
-		this.hideCurrentSlide(numCurrentSlide);
-		const newCurrentSlide = this.getNewCurrentSlide(target.getAttribute('data-target'), numCurrentSlide, this.count);
-		this.showNewCurrentSlide(newCurrentSlide);
-		this.triggerSlideChange(newCurrentSlide); // move to real change slide logic (setter accessor for activeIndex)
-		// setActive(/*target from attribute*/)
+		this.setActive(target.getAttribute('data-target'));
 		event.stopPropagation();
 		event.preventDefault();
 	}
 
-	bindEvents() {
-		// listeners will be here
-		this.addEventListener('click', (event) => this.onClick(event));
-	}
-
-	// set activeIndex(index: number) {
-	// 	// change slide
-	// }
-
-	setActive(target: number | 'prev' | 'next') {
-		if ('prev' === target) {
-			this.activeIndex--;
-		} else if ('next' === target) {
-			this.activeIndex--;
-		} else {
-			this.activeIndex = target;
-		}
-	}
-
-	getNewCurrentSlide(showing: string, numCurrentSlide: number, lengthSlidesList: number): number {
-		let nextSlide: number = 0;
-		switch (showing) {
+	setActive(target: string | number) {
+		switch (target) {
 			case 'prev':
-				nextSlide = numCurrentSlide + 1;
+				this.activeIndex--;
 				break;
 			case 'next':
-				nextSlide = numCurrentSlide - 1;
+				this.activeIndex++;
 				break;
+			default:
+				this.activeIndex = +target;
 		}
-		return (nextSlide + lengthSlidesList) % lengthSlidesList;
 	}
 
-	showNewCurrentSlide(numCurrentSlide: number): void {
-		this.slides[numCurrentSlide].classList.add('show-slide');
-	}
-
-	hideCurrentSlide(numCurrentSlide: number): void {
-		this.slides[numCurrentSlide].classList.remove('show-slide');
-	}
-
-	goToSlide(): void {
-		// setActive
-	}
-
-	triggerSlideChange(numNewSlide: number) {
+	triggerSlideChange() {
 		const event = new CustomEvent('sc-slide-changed', {
-			bubbles: true,
-			detail: {
-				numNextSlide: `${numNewSlide}`,
-			},
+			bubbles: true
 		});
 		this.dispatchEvent(event);
 	}
 }
 
-customElements.define('slide-carousel', Carousel);
+customElements.define('slide-carousel', SlideCarousel);
+export default SlideCarousel;

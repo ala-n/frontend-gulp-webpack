@@ -1,5 +1,4 @@
 const paths = require('./paths/paths-config');
-const OUTPUT_DIR = paths.OUTPUT_DIR;
 const INPUT_DIR = paths.INPUT_DIR;
 const STYLE_OUTPUT = paths.STYLE_OUTPUT;
 
@@ -24,33 +23,33 @@ function cleanTask() {
         .pipe(clean());
 }
 
-function buildLess() {
+function buildLess(outputDir) {
     return gulp.src(INPUT_DIR + '*.less')
         .pipe(sourcemaps.init())
         .pipe(less())
         .pipe(concat(STYLE_OUTPUT))
         .pipe(minifyCss())
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest(OUTPUT_DIR))
+        .pipe(gulp.dest(outputDir))
         .pipe(browserSync.stream())
         .pipe(gzip())
-        .pipe(gulp.dest(OUTPUT_DIR))
+        .pipe(gulp.dest(outputDir))
 }
 
 function prodWebpackConfig() {
     return gulp.src(INPUT_DIR + '*.ts')
         .pipe(named())
         .pipe(webpackStream(prodConfig))
-        .pipe(gulp.dest(OUTPUT_DIR))
+        .pipe(gulp.dest(paths.OUTPUT_DIR_PROD))
         .pipe(gzip())
-        .pipe(gulp.dest(OUTPUT_DIR))
+        .pipe(gulp.dest(paths.OUTPUT_DIR_PROD))
 }
 
 function devWebpackConfig() {
     return gulp.src(INPUT_DIR + '*.ts')
         .pipe(named())
         .pipe(webpackStream(devConfig))
-        .pipe(gulp.dest(OUTPUT_DIR))
+        .pipe(gulp.dest(paths.OUTPUT_DIR))
         .pipe(browserSync.stream())
 }
 
@@ -60,11 +59,12 @@ gulp.task('tslint', () =>
         .pipe(tslint.report())
 );
 gulp.task('clean', cleanTask);
-gulp.task('build-less', buildLess);
+gulp.task('build-less', () => buildLess(paths.OUTPUT_DIR));
+gulp.task('prod-less', () => buildLess(paths.OUTPUT_DIR_PROD));
 gulp.task('prod-build-ts', prodWebpackConfig);
 gulp.task('dev-build-ts', devWebpackConfig);
 
-const prodDebugTask = gulp.parallel('build-less', 'prod-build-ts');
+const prodTask = gulp.parallel('prod-less', 'prod-build-ts');
 const devDebugTask = gulp.parallel('build-less', 'dev-build-ts');
 
 function serveTask() {
@@ -88,7 +88,7 @@ function serveTask() {
 gulp.task('serve', serveTask);
 
 gulp.task('devBuild', gulp.series('clean', 'tslint',  devDebugTask, 'serve'));
-gulp.task('prodBuild', gulp.series('clean', prodDebugTask, 'serve'));
+gulp.task('prodBuild', gulp.series('clean', prodTask));
 
 gulp.task('default', gulp.series('devBuild'));
 gulp.task('prod', gulp.series('prodBuild'));
