@@ -38,7 +38,7 @@ class SlideCarousel extends HTMLElement {
 
 	_onClick(event: MouseEvent) {
 		const target = event.target as HTMLElement;
-		this.setActive(target.getAttribute('data-target'));
+		this.setActive(target.getAttribute('data-slide-target'));
 		event.stopPropagation();
 		event.preventDefault();
 	}
