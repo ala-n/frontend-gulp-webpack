@@ -28,20 +28,28 @@ class SlideCarousel extends HTMLElement {
 		this.triggerSlideChange();
 	}
 
+	_onClick = (event: MouseEvent) => {
+		const target = event.target as HTMLElement;
+		const attrValue = target.getAttribute('data-slide-target');
+		if (attrValue) {
+			this.setActive(attrValue);
+			event.stopPropagation();
+			event.preventDefault();
+		}
+	};
+
 	connectedCallback() {
 		this.bindEvents();
 	}
 
-	bindEvents() {
-		this.addEventListener('click', (event) => this._onClick(event));
+	disconnectedCallback() {
+		this.removeEventListener('click', this._onClick);
 	}
 
-	_onClick(event: MouseEvent) {
-		const target = event.target as HTMLElement;
-		this.setActive(target.getAttribute('data-slide-target'));
-		event.stopPropagation();
-		event.preventDefault();
+	bindEvents() {
+		this.addEventListener('click', this._onClick);
 	}
+
 
 	setActive(target: string | number) {
 		switch (target) {
