@@ -1,15 +1,13 @@
-#popup-menu {
-  //display:none;
+.popup-menu {
   position: absolute;
   top: 100%;
-  padding: 0;
-  background: #000;
-  border-radius: 0 0 .2em .2em;
-  width: 110px;
-
+  right: 0;
+  width: 50px;
+  padding:0;
+  margin: 20px 0;
+  background: rgba(0, 0, 0, .7);
   li {
     list-style-type: none;
-    padding-right: 10px;
     &:hover{
       background: #fff;
       a{
@@ -17,11 +15,11 @@
       }
     }
     a {
-      color: #fff;
+      padding: 7px 10px;
+      display: block;
       text-align: right;
       text-decoration: none;
-      padding: .5em 10px;
-      display: block;
+      color: #fff;
     }
   }
 }
