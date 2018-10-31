@@ -1,3 +1,4 @@
+@color-active: #717171;
 .arrow() {
   content: '';
   display: inline-block;
@@ -57,34 +58,23 @@
     z-index: 3;
     height: 100%;
     padding: 0 3px;
-    background: rgba(255, 255, 255, 0);
     border: none;
-    opacity: .2;
+    opacity: .1;
     cursor: pointer;
     transition: opacity .2s ease-in;
+    text-align: center;
     &:hover {
-      opacity: 1;
+      opacity: .5;
     }
     &:focus {
       outline: none;
     }
-    .img-arrow {
-      width: 30px;
-      height: 30px;
-    }
   }
   .btn-next {
     right: 0;
-    &:before {
-      .arrow;
-      transform: rotate(180deg);
-    }
   }
   .btn-prev {
     left: 0;
-    &:before {
-      .arrow;
-    }
   }
   .not-next:hover, .not-prev:hover {
     opacity: .2;

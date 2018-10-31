@@ -1,6 +1,10 @@
 <article class="slider">
     <slide-carousel class="slider-items">
-        <button class="btn-prev" data-slide-target="prev"></button>
+        <button class="btn-prev btn-icon" data-slide-target="prev">
+            <svg viewBox="0 0 35 50" xmlns="http://www.w3.org/2000/svg" class="icon-sm">
+                <polyline points=" 30 5 5 25 30 45" stroke="black" stroke-width="3" fill="none"/>
+            </svg>
+        </button>
 
         <div data-slide-container>
             <div data-slide-item class="active-slide">{{> component-news}}</div>
@@ -47,8 +51,11 @@
                 </div>
             </div>
         </div>
-
-        <button class="btn-next" data-slide-target="next"></button>
+        <button class="btn-next btn-icon" data-slide-target="next">
+            <svg viewBox="0 0 35 50" xmlns="http://www.w3.org/2000/svg" class="icon-sm">
+                <polyline points=" 5 5 30 25 5 45" stroke="black" stroke-width="3" fill="none"/>
+            </svg>
+        </button>
         <slide-carousel-dots class="dots-wrapper" data-dots-container></slide-carousel-dots>
     </slide-carousel>
 </article>

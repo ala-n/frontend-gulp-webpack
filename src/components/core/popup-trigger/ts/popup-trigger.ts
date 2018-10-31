@@ -1,43 +1,43 @@
 import PopupMenu from './popup-menu';
 
 class PopupTrigger extends HTMLElement {
-    private _popup_menu: PopupMenu;
+	constructor() {
+		super();
+	}
 
-    constructor() {
-        super();
-    }
+	get newActiveValue(): string {
+		return this.getAttribute('data-popup-trigger');
+	}
 
-    get newActiveValue(): string {
-        return this.getAttribute('data-popup-trigger');
-    }
+	get popupMenu(): PopupMenu {
+		return this.nextElementSibling as PopupMenu;
+	}
 
-    _onClick = (event: MouseEvent) => {
-        const target = event.target as HTMLElement;
-        target.closest('.nav-menu').querySelector('.popup-menu').classList.toggle('hide');
-        event.stopPropagation();
-        event.preventDefault();
-    };
+	_onClick = (event: MouseEvent) => {
+		this.popupMenu.querySelector('.popup-menu').classList.toggle('hide');
+		event.stopPropagation();
+		event.preventDefault();
+	};
 
-    _onUpdate = () => this.rerender();
+	_onUpdate = () => this.rerender();
 
-    connectedCallback() {
-        this._popup_menu = this.closest('.nav-menu').querySelector(PopupMenu.is) as PopupMenu;
-        this.bindEvents();
-        this._popup_menu.addEventListener('sc-elem-changed', this._onUpdate);
-    }
+	connectedCallback() {
+		this.bindEvents();
+		this.popupMenu.addEventListener('sc-elem-changed', this._onUpdate);
+	}
 
-    bindEvents() {
-        this.addEventListener('click', this._onClick);
-    }
+	bindEvents() {
+		this.addEventListener('click', this._onClick);
+	}
 
-    private disconnectedCallback() {
-        this._popup_menu.removeEventListener('sc-elem-changed', this._onUpdate);
-    }
+	private disconnectedCallback() {
+		this.popupMenu.removeEventListener('sc-elem-changed', this._onUpdate);
+	}
 
-    private rerender() {
-        this.setAttribute('data-popup-trigger', this._popup_menu.value);
-        this.querySelector('.language-change').innerHTML = this.newActiveValue;
-    }
+	private rerender() {
+		this.setAttribute('data-popup-trigger',  this.popupMenu.value);
+		this.querySelector('.language-change').innerHTML = this.newActiveValue;
+	}
 }
 
 customElements.define('popup-trigger', PopupTrigger);

@@ -53,6 +53,11 @@ function devWebpackConfig() {
         .pipe(browserSync.stream())
 }
 
+function attachJCRIdentifier(){
+    return gulp.src('aem-build/.content.xml')
+        .pipe(gulp.dest(paths.OUTPUT_DIR_PROD));
+
+}
 gulp.task('tslint', () =>
     gulp.src(['src/**/' + '*.ts', '!node_modules/**'])
         .pipe(tslint())
@@ -64,7 +69,7 @@ gulp.task('prod-less', () => buildLess(paths.OUTPUT_DIR_PROD));
 gulp.task('prod-build-ts', prodWebpackConfig);
 gulp.task('dev-build-ts', devWebpackConfig);
 
-const prodTask = gulp.parallel('prod-less', 'prod-build-ts');
+const prodTask = gulp.parallel('prod-less', 'prod-build-ts', attachJCRIdentifier);
 const devDebugTask = gulp.parallel('build-less', 'dev-build-ts');
 
 function serveTask() {
