@@ -2,6 +2,8 @@
   display: flex;
   width: auto;
   padding: 5px 10px;
+  background: black;
+  border: none;
   cursor: pointer;
   .language-icon {
     display: none;
@@ -19,5 +21,8 @@
     &::before {
       content: 'Lang: ';
     }
+  }
+  &:focus{
+    outline-color: #000;
   }
 }

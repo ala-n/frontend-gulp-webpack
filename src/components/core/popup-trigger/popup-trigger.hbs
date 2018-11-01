@@ -1,14 +1,18 @@
 <nav class="nav-menu">
-    <popup-trigger data-popup-trigger="eng" class="language">
-        <div class="language-icon"></div>
-        <span class="language-change">eng</span>
-    </popup-trigger>
-    <popup-menu>
-        <ul class="popup-menu hide">
-            <li><a href="#" data-menu-target="toggle">eng</a></li>
-            <li><a href="#" data-menu-target="hover">rus</a></li>
-            <li><a href="#" data-menu-target="hover">deu</a></li>
-            <li><a href="#" data-menu-target="hover">bel</a></li>
-        </ul>
-    </popup-menu>
+    <button class="language">
+        <drop-down>
+            <popup-trigger data-popup-trigger="eng">
+                <div class="language-icon"></div>
+                <span class="language-change">eng</span>
+            </popup-trigger>
+        </drop-down>
+        <popup-menu>
+            <ul class="popup-menu hide">
+                <li><a href="#" data-menu-target="toggle">eng</a></li>
+                <li><a href="#" data-menu-target="hover">rus</a></li>
+                <li><a href="#" data-menu-target="hover">deu</a></li>
+                <li><a href="#" data-menu-target="hover">bel</a></li>
+            </ul>
+        </popup-menu>
+    </button>
 </nav>

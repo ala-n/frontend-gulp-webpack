@@ -1,57 +1,37 @@
 class PopupMenu extends HTMLElement {
+	constructor() {
+		super();
+	}
 
-    static get is() {
-        return 'popup-menu';
-    }
+	get activeValue(): HTMLElement {
+		return this.querySelector('[data-menu-target="toggle"]');
+	}
 
-    constructor() {
-        super();
-    }
+	set activeValue(value: HTMLElement) {
+		this.activeValue.setAttribute('data-menu-target', 'hover');
+		value.setAttribute('data-menu-target', 'toggle');
+	}
 
-    get elements(): HTMLElement[] {
-        const els = this.querySelectorAll('[data-menu-target]') as NodeListOf<HTMLElement>;
-        return els ? Array.from(els) : [];
-    }
+	triggerElements() {
+		this.querySelector('.popup-menu').classList.toggle('hide');
+	}
 
+	_onClick = (event: MouseEvent) => {
+		this.activeValue = event.target as HTMLElement;
+		this.triggerElemChange();
+		this.triggerElements();
+	};
 
-    get value(): string {
-        return this.elements[this.activeIndex].textContent;
-    }
+	connectedCallback() {
+		this.addEventListener('click', this._onClick);
+	}
 
-    get activeIndex(): number {
-        return this.elements.findIndex((el) => el.getAttribute('data-menu-target') === 'toggle');
-    }
-
-    setActive(value: string) {
-        this.elements[this.activeIndex].setAttribute('data-menu-target', 'hover');
-        const index = this.elements.findIndex((el) => el.textContent === value);
-        this.elements[index].setAttribute('data-menu-target', 'toggle');
-        this.triggerElemChange();
-    }
-
-    _onClick = (event: MouseEvent) => {
-        const target = event.target as HTMLElement;
-        const attrValue = target.getAttribute('data-menu-target');
-        if (attrValue === 'hover') {
-            this.setActive(target.textContent);
-        }
-        this.querySelector('.popup-menu').classList.toggle('hide');
-    };
-
-    connectedCallback() {
-        this.bindEvents();
-    }
-
-    bindEvents() {
-        this.addEventListener('click', this._onClick);
-    }
-
-    triggerElemChange() {
-        const event = new CustomEvent('sc-elem-changed', {
-            bubbles: true
-        });
-        this.dispatchEvent(event);
-    }
+	triggerElemChange() {
+		const event = new CustomEvent('sc-elem-changed', {
+			bubbles: true
+		});
+		this.dispatchEvent(event);
+	}
 }
 
 customElements.define('popup-menu', PopupMenu);
