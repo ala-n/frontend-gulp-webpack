@@ -75,7 +75,7 @@ const devDebugTask = gulp.parallel('build-less', 'dev-build-ts');
 function serveTask() {
     browserSync.init({
         proxy: {
-            target: 'localhost:3030',
+            target: 'localhost:3050',
         },
         browser: "chrome",
     });
