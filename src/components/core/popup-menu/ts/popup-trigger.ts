@@ -1,8 +1,8 @@
 import PopupMenu from './popup-menu';
 
-class DropDown extends HTMLElement {
+class PopupTrigger extends HTMLElement {
 	static get is() {
-		return 'drop-down';
+		return 'popup-trigger';
 	}
 
 	constructor() {
@@ -14,7 +14,7 @@ class DropDown extends HTMLElement {
 	}
 
 	_onClick = (event: MouseEvent) => {
-		this.popupMenu.triggerElements();
+		this.popupMenu.triggerPopupMenu();
 		event.stopPropagation();
 		event.preventDefault();
 	};
@@ -24,5 +24,5 @@ class DropDown extends HTMLElement {
 	}
 }
 
-customElements.define('drop-down', DropDown);
-export default DropDown;
+customElements.define('popup-trigger', PopupTrigger);
+export default PopupTrigger;

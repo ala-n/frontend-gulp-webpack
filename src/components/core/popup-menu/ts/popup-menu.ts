@@ -4,22 +4,23 @@ class PopupMenu extends HTMLElement {
 	}
 
 	get activeValue(): HTMLElement {
-		return this.querySelector('[data-menu-target="toggle"]');
+		return this.querySelector('[active-item]');
 	}
 
 	set activeValue(value: HTMLElement) {
-		this.activeValue.setAttribute('data-menu-target', 'hover');
-		value.setAttribute('data-menu-target', 'toggle');
+		value.toggleAttribute('active-item');
+		// this.activeValue.setAttribute('data-menu-target', 'hover');
+		// value.setAttribute('data-menu-target', 'toggle');
 	}
 
-	triggerElements() {
-		this.querySelector('.popup-menu').classList.toggle('hide');
+	triggerPopupMenu() {
+		this.toggleAttribute('content-hide');
 	}
 
 	_onClick = (event: MouseEvent) => {
 		this.activeValue = event.target as HTMLElement;
 		this.triggerElemChange();
-		this.triggerElements();
+		this.triggerPopupMenu();
 	};
 
 	connectedCallback() {
