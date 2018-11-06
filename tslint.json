@@ -22,7 +22,8 @@
     "no-consecutive-blank-lines": false,
     "indent": false,
     "variable-name": false,
-    "semicolon": false
+    "semicolon": false,
+    "no-unused-expression": false
   },
   "rulesDirectory": []
 }

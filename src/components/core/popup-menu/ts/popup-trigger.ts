@@ -1,16 +1,12 @@
 import PopupMenu from './popup-menu';
 
 class PopupTrigger extends HTMLElement {
-	static get is() {
-		return 'popup-trigger';
-	}
-
 	constructor() {
 		super();
 	}
 
 	get popupMenu(): PopupMenu {
-		return this.nextElementSibling as PopupMenu;
+		return this.nextElementSibling as PopupMenu; // unsafe
 	}
 
 	_onClick = (event: MouseEvent) => {
@@ -18,10 +14,6 @@ class PopupTrigger extends HTMLElement {
 		event.stopPropagation();
 		event.preventDefault();
 	};
-
-	connectedCallback() {
-		this.addEventListener('click', this._onClick);
-	}
 }
 
 customElements.define('popup-trigger', PopupTrigger);
