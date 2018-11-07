@@ -6,7 +6,7 @@ class PopupTrigger extends HTMLElement {
 	}
 
 	get popupMenu(): PopupMenu {
-		return this.nextElementSibling as PopupMenu; // unsafe
+		return this.closest('.nav-menu').querySelector('#popup-menu') as PopupMenu;
 	}
 
 	_onClick = (event: MouseEvent) => {

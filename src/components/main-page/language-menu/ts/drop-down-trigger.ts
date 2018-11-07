@@ -8,11 +8,8 @@ class DropDownTrigger extends PopupTrigger {
 
 	_onUpdate = () => this.rerender();
 
-	get value() {
-		return '';
-	}
-	set value(val) {
-		// todo
+	get value(): string {
+		return (this.popupMenu as DropDownMenu).activeValue.textContent;
 	}
 
 	connectedCallback() {
@@ -25,7 +22,7 @@ class DropDownTrigger extends PopupTrigger {
 	}
 
 	private rerender() {
-		this.querySelector('.language-change').innerHTML = (this.popupMenu as DropDownMenu).activeValue.textContent;
+		this.querySelector('.language-change').innerHTML = this.value;
 	}
 }
 
