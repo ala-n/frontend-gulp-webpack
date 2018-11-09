@@ -4,9 +4,8 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const TS_CONFIG = path.join(__dirname, '../tsconfig.json');
 
 module.exports = {
-    context: __dirname + '/src/bundles-content/',
+    context: __dirname + '/src/bundles/',
     mode: 'development',
-    // devtool: "cheap-module-inline-source-map",
     devtool: 'inline-source-map',
     output: {
         path: __dirname + '/dist',

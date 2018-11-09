@@ -9,3 +9,8 @@ module.exports.pathsArray = [
     DIR_NAME_COMPONENTS + 'news-page/information-news',
     DIR_NAME_COMPONENTS + 'main-page/language-menu'
 ];
+
+
+// function getRandomId() {
+//     return Number(Math.random()).toString(64) + Number(Date.now()).toString(64);
+// }

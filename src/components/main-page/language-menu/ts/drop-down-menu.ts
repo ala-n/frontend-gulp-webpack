@@ -6,7 +6,7 @@ class DropDownMenu extends PopupMenu {
     }
 
     _onClick = (event: MouseEvent) => {
-        this.activeValue = event.target as HTMLElement; // instead get trigger(input) and set value
+        this.activeValue = event.target as HTMLElement;
         this.triggerPopupMenu();
         this.triggerPopupStateChange();
     };

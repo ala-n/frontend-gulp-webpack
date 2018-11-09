@@ -1,5 +1,5 @@
 module.exports = {
-    context: __dirname + '/src/bundles-content/',
+    context: __dirname + '/src/bundles/',
     watch: false,
     mode: 'production',
     output: {

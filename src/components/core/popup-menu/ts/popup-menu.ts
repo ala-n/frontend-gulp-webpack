@@ -3,9 +3,15 @@ class PopupMenu extends HTMLElement {
         super();
     }
 
-    triggerPopupMenu() {
-        this.toggleAttribute('not-active');
+    connectedCallback() {
+		this.classList.add('popup-menu');
     }
+
+    triggerPopupMenu() {
+        this.toggleAttribute('active');
+    }
+
+    // getters / setters
 }
 
 customElements.define('popup-menu', PopupMenu);
