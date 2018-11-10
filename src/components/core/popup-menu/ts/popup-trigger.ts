@@ -6,7 +6,7 @@ class PopupTrigger extends HTMLElement {
 	}
 
 	get popupMenu(): PopupMenu {
-		return document.getElementById('drop-down') as PopupMenu;
+		return document.getElementById('drop-down-menu') as PopupMenu;
 	}
 
 	_onClick = (event: MouseEvent) => {

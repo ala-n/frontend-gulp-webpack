@@ -6,21 +6,22 @@ class DropDownMenu extends PopupMenu {
     }
 
     _onClick = (event: MouseEvent) => {
-        this.activeValue = event.target as HTMLElement;
+        this.activeElem = event.target as HTMLElement;
         this.triggerPopupMenu();
         this.triggerPopupStateChange();
     };
 
     connectedCallback() {
+        this.id = 'drop-down-menu';
         this.addEventListener('click', this._onClick);
     }
 
-    get activeValue(): HTMLElement {
+    get activeElem(): HTMLElement {
         return this.querySelector('[active-item]');
     }
 
-    set activeValue(value: HTMLElement) {
-        this.activeValue.toggleAttribute('active-item');
+    set activeElem(value: HTMLElement) {
+        this.activeElem.toggleAttribute('active-item');
         value.toggleAttribute('active-item');
     }
 
@@ -33,7 +34,7 @@ class DropDownMenu extends PopupMenu {
 
     triggerPopupMenu() {
         super.triggerPopupMenu();
-        if (!this.hasAttribute('not-active')) {
+        if (this.active) {
             const activeItm = this.querySelector('[active-item]') as HTMLElement;
             (activeItm) && activeItm.focus();
         }
