@@ -12,7 +12,7 @@ class DropDownMenu extends PopupMenu {
     };
 
     connectedCallback() {
-        this.id = 'drop-down-menu';
+        super.connectedCallback();
         this.addEventListener('click', this._onClick);
     }
 
