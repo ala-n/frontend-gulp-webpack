@@ -3,10 +3,6 @@ class PopupMenu extends HTMLElement {
         super();
     }
 
-    connectedCallback() {
-        this.id = 'drop-down-popup-menu';
-    }
-
     set active(value: boolean) {
         this.toggleAttribute('active');
         this.setAttribute('aria-hidden', String(!value));

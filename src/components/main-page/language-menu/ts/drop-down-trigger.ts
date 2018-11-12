@@ -1,5 +1,6 @@
 import PopupTrigger from '../../../core/popup-menu/ts/popup-trigger';
 import DropDownMenu from './drop-down-menu';
+import PopupMenu from '../../../core/popup-menu/ts/popup-menu';
 
 class DropDownTrigger extends PopupTrigger {
 	constructor() {
@@ -8,13 +9,17 @@ class DropDownTrigger extends PopupTrigger {
 
 	_onUpdate = () => this.rerender();
 
+	get popupMenu(): PopupMenu {
+		return document.getElementById('drop-down-popup-menu') as PopupMenu;
+	}
+
 	get activeElem(): HTMLElement {
 		return (this.popupMenu as DropDownMenu).activeElem;
 	}
 
-    get activeValue(): string {
-        return this.activeElem.textContent;
-    }
+	get activeValue(): string {
+		return this.activeElem.textContent;
+	}
 
 	connectedCallback() {
 		this.addEventListener('click', this._onClick);
