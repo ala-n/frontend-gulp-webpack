@@ -1,6 +1,5 @@
 import PopupTrigger from '../../../core/popup-menu/ts/popup-trigger';
 import DropDownMenu from './drop-down-menu';
-import PopupMenu from '../../../core/popup-menu/ts/popup-menu';
 
 class DropDownTrigger extends PopupTrigger {
 	constructor() {
@@ -8,10 +7,6 @@ class DropDownTrigger extends PopupTrigger {
 	}
 
 	_onUpdate = () => this.rerender();
-
-	get popupMenu(): PopupMenu {
-		return document.getElementById('drop-down-popup-menu') as PopupMenu;
-	}
 
 	get activeElem(): HTMLElement {
 		return (this.popupMenu as DropDownMenu).activeElem;
@@ -31,7 +26,10 @@ class DropDownTrigger extends PopupTrigger {
 	}
 
 	private rerender() {
-		this.querySelector('.language-change').innerHTML = this.activeValue;
+		const el = this.querySelector('[data-value]') as HTMLElement;
+		if (el) {
+			el.innerHTML = this.activeValue;
+		}
 	}
 }
 

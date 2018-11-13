@@ -1,11 +1,12 @@
 class PopupMenu extends HTMLElement {
-    constructor() {
+    static get observedAttributes() { return ['active']; }
+
+	constructor() {
         super();
     }
 
     set active(value: boolean) {
         this.toggleAttribute('active');
-        this.setAttribute('aria-hidden', String(!value));
     }
 
     get active(): boolean {
@@ -14,6 +15,14 @@ class PopupMenu extends HTMLElement {
 
     triggerPopupMenu() {
         this.active = !this.active;
+    }
+
+	attributeChangedCallback(name: string, oldVal: string, val: string) {
+        switch (name) {
+            case 'active':
+				this.setAttribute('aria-hidden', String(!val));
+				return;
+		}
     }
 }
 
