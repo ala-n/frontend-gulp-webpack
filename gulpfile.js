@@ -82,13 +82,14 @@ gulp.task('dev-build-ts', devWebpackConfig);
 function serveTask() {
     browserSync.init({
         proxy: {
-            target: 'localhost:3300',
+            target: 'localhost:3330',
         },
         browser: "chrome",
     });
 
     nodemon({
         script: 'server.js',
+	    // ext: 'js hbs'
     }).on('restart', function () {
         console.log('restarted!')
     });

@@ -13,7 +13,7 @@ class VideoTrigger {
 	}
 
 	private _onChange(event: MouseEvent) {
-		event.preventDefault();
+		// event.preventDefault();
 		// const view = new VideoService();
 		// this._view = view.createEmpty();
 		// const target = event.target as HTMLElement;

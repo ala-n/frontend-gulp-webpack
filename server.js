@@ -3,18 +3,43 @@ const path = require('path');
 const fs = require('fs');
 
 const express = require('express');
-const exphbs = require('express-hbs');
-const pathshbs = require('./paths/paths-hbs');
+const exphbs = require('express-handlebars');
+const hbswax = require('handlebars-wax');
 
 const app = express();
-const pathsArray = pathshbs.pathsArray.map(src => path.join(__dirname, src));
 
 const viewPath = path.join(__dirname, '/test-pages/pages/');
 
-app.engine('.html', exphbs.express4({
-    layoutsDir: __dirname,
-    partialsDir: pathsArray,
-}));
+const hbs = exphbs.create({
+	layoutsDir: __dirname,
+});
+const handlebars = hbs.handlebars;
+hbswax(handlebars)
+	.partials('src/components/**/*.hbs', {
+		parsePartialName: function(options, file) {
+		    const name = /\\([^\\]+)\.hbs$/.exec(file.path)[1];
+		    file.exports.path = file.path;
+			return name;
+		}
+	});
+
+handlebars.registerHelper('include', function (name) {
+	const partial = handlebars.partials[name];
+
+	const dataPath = partial.path.replace(/\\([^\\]+)$/, '\\data.json');
+	let context = {};
+
+	try {
+		const content = fs.readFileSync(dataPath);
+		context = JSON.parse(content);
+    } catch (e) {
+        console.error(e);
+	}
+
+	return partial(Object.assign({}, this, context));
+});
+
+app.engine('.html', hbs.engine);
 
 app.set('views', viewPath);
 app.set('view engine', 'html');
@@ -67,6 +92,6 @@ app.get('/*', function (req, res, next) {
     }
     next();
 });
-app.listen(3300, function () {
-    console.log('Example app listening on port 3300!');
+app.listen(3330, function () {
+    console.log('Example app listening on port 3330!');
 });
