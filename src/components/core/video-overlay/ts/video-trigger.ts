@@ -1,9 +1,9 @@
-import VideoPopupView from './video-popup-view';
+import VideoService from './video-service';
 
 class VideoTrigger {
 	private _view: Element;
 
-	load() {
+	init() {
 		this.slides.forEach((el) => el.addEventListener('click', (event) => this._onChange(event)));
 	}
 
@@ -14,9 +14,8 @@ class VideoTrigger {
 
 	private _onChange(event: MouseEvent) {
 		event.preventDefault();
-		const view = new VideoPopupView();
-		this._view = view.createEmpty();
-		console.log(this._view);
+		// const view = new VideoService();
+		// this._view = view.createEmpty();
 		// const target = event.target as HTMLElement;
 		// const attrValue = target.getAttribute('href');
 		// if (target.tagName === 'A' && attrValue.includes('youtube.com')) {

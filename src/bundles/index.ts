@@ -12,6 +12,6 @@ const COMPONENTS_LIST = [
 
 COMPONENTS_LIST.forEach((Component) => {
 	const component = new Component();
-	component.load();
+	component.init();
 });
 
