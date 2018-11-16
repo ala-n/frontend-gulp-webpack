@@ -1,26 +1,17 @@
 import VideoService from './video-service';
 
 class VideoTrigger {
-	private _view: Element;
 
-	init() {
-		this.slides.forEach((el) => el.addEventListener('click', (event) => this._onChange(event)));
+	constructor(link: HTMLElement) {
+		link.addEventListener('click', (event) => this._onClick(event), false);
 	}
 
-	get slides(): HTMLElement[] {
-		const els = document.querySelectorAll('.container-news') as NodeListOf<HTMLElement>;
-		return els ? Array.from(els) : [];
-	}
-
-	private _onChange(event: MouseEvent) {
-		// event.preventDefault();
-		// const view = new VideoService();
-		// this._view = view.createEmpty();
-		// const target = event.target as HTMLElement;
-		// const attrValue = target.getAttribute('href');
-		// if (target.tagName === 'A' && attrValue.includes('youtube.com')) {
-		// this._service.insertVideo(attrValue);
-		// }
+	private _onClick(event: MouseEvent) {
+		event.preventDefault();
+		const target = event.target as HTMLElement;
+		const url = target.getAttribute('href');
+		VideoService.show(url);
 	}
 }
+
 export default VideoTrigger;

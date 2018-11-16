@@ -3,15 +3,19 @@ import '../components/core/slide-carousel/ts/slide-carousel.ts';
 import '../components/main-page/language-menu/ts/drop-down-menu.ts';
 import '../components/main-page/language-menu/ts/drop-down-trigger.ts';
 
+import VideoOverlay from '../components/core/video-overlay/ts/video-overlay';
+import VideoService from '../components/core/video-overlay/ts/video-service';
 import VideoTrigger from '../components/core/video-overlay/ts/video-trigger';
 
-
 const COMPONENTS_LIST = [
-	VideoTrigger
+	VideoService,
+	VideoOverlay
 ];
 
 COMPONENTS_LIST.forEach((Component) => {
 	const component = new Component();
-	component.init();
 });
+
+const links = document.querySelectorAll('.container-news a[href*="youtube"]');
+links.forEach((link: HTMLElement) => new VideoTrigger(link));
 
