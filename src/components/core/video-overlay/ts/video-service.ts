@@ -18,11 +18,10 @@ class VideoService {
 	 */
 	static hide() {
 		const inst = new VideoService();
-		// inst.hide();
+		inst.hide();
 	}
 
 	_popup: PopupMenu;
-	url: string;
 
 	constructor() {
 		if (instance) {
@@ -33,23 +32,29 @@ class VideoService {
 		document.querySelector('body').appendChild(instance._popup);
 	}
 
-	get iframe(): HTMLIFrameElement {
-		return this._popup.querySelector('iframe');
+
+	get utl(): string {
+		return this._popup.querySelector('iframe').src;
+		// return this._popup.querySelector('iframe').src;
+	}
+
+	set url(url: string) {
+		this._popup.querySelector('iframe').src = url;
 	}
 
 	show() {
 		if (this._popup && !this._popup.active) {
-			this.iframe.src = this.url;
-			this._popup.triggerPopupMenu();
+			// this.iframe.src = this._url;
+			this._popup.active = true;
 		}
 	}
 
-	// private hide() {
-	// 	if (this._popup && this._popup.active) {
-	// 		// this.iframe.src = '';
-	// 		this._popup.triggerPopupMenu();
-	// 	}
-	// }
+	hide() {
+		if (this._popup && this._popup.active) {
+			// this.iframe.src = '';
+			this._popup.active = false;
+		}
+	}
 
 	private _createElem(): HTMLElement {
 		const fragment = document.createElement('template');

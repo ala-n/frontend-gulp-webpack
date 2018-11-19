@@ -6,14 +6,14 @@ class PopupMenu extends HTMLElement {
     }
 
     set active(value: boolean) {
-        this.toggleAttribute('active');
+        this.toggleAttribute('active', value);
     }
 
     get active(): boolean {
         return this.hasAttribute('active');
     }
 
-    triggerPopupMenu() {
+    togglePopupMenu() {
         this.active = !this.active;
     }
 

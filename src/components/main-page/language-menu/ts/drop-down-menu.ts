@@ -7,7 +7,7 @@ class DropDownMenu extends PopupMenu {
 
 	_onClick = (event: MouseEvent) => {
 		this.activeElem = event.target as HTMLElement;
-		this.triggerPopupMenu();
+		this.togglePopupMenu();
 		this.triggerPopupStateChange();
 	};
 
@@ -31,8 +31,8 @@ class DropDownMenu extends PopupMenu {
 		this.dispatchEvent(event);
 	}
 
-	triggerPopupMenu() {
-		super.triggerPopupMenu();
+	togglePopupMenu() {
+		super.togglePopupMenu();
 		if (this.active) {
 			const activeItm = this.querySelector('[active-item]') as HTMLElement;
 			(activeItm) && activeItm.focus();

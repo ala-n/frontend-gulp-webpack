@@ -11,7 +11,7 @@ class PopupTrigger extends HTMLElement {
 	}
 
 	_onClick = (event: MouseEvent) => {
-		this.popupMenu.triggerPopupMenu();
+		this.popupMenu.togglePopupMenu();
 		event.stopPropagation();
 		event.preventDefault();
 	};
