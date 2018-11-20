@@ -1,9 +1,10 @@
 .shadow-border() {
   box-shadow: 0 1px 4px rgba(0, 0, 0, .3),
   -23px 0 20px -26px rgba(0, 0, 0, .8),
-23px 0 20px -26px rgba(0, 0, 0, .8),
-0 0 40px rgba(0, 0, 0, .1) inset;
+  23px 0 20px -26px rgba(0, 0, 0, .8),
+  0 0 40px rgba(0, 0, 0, .1) inset;
 }
+
 .shadow-border-hover() {
   box-shadow: 0 1px 4px rgba(0, 0, 0, .3),
   -23px 0 20px -23px rgba(0, 0, 0, .8),
@@ -19,7 +20,7 @@
     background-color: #fff;
     transition: .2s ease;
     .shadow-border;
-    &:hover{
+    &:hover {
       cursor: pointer;
       .shadow-border-hover;
       .text-information-more {
@@ -43,20 +44,25 @@
     }
   }
 
-  .youtube-link{
+  .youtube-link {
     color: firebrick;
   }
+}
 
-  // move to grid component
-  @media screen and (max-width: 980px) {
-    #articles > .container-news {
+// move to grid component
+@media screen and (max-width: 980px) {
+  .articles {
+    .container-news {
       width: 44%;
     }
   }
+}
 
-  @media screen and (max-width: 700px) {
-    #articles > .container-news {
+@media screen and (max-width: 700px) {
+  .articles {
+    .container-news {
       width: 80%;
     }
   }
 }
+

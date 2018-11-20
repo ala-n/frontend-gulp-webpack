@@ -35,7 +35,6 @@ class VideoService {
 
 	get utl(): string {
 		return this._popup.querySelector('iframe').src;
-		// return this._popup.querySelector('iframe').src;
 	}
 
 	set url(url: string) {
@@ -44,14 +43,12 @@ class VideoService {
 
 	show() {
 		if (this._popup && !this._popup.active) {
-			// this.iframe.src = this._url;
 			this._popup.active = true;
 		}
 	}
 
 	hide() {
 		if (this._popup && this._popup.active) {
-			// this.iframe.src = '';
 			this._popup.active = false;
 		}
 	}

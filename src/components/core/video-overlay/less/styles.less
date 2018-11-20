@@ -1,7 +1,7 @@
 #video-popup {
   display: none;
   &[active] {
-    position: absolute;
+    position: fixed;
     z-index: 99;
     display: flex;
     justify-content: center;
@@ -15,6 +15,16 @@
     width: 800px;
     height: 600px;
 
+  }
+}
+@media screen and (max-width: 850px) {
+  #video-popup {
+    .video-popup-iframe {
+      position: absolute;
+      width: 600px;
+      height: 450px;
+
+    }
   }
 }
 
