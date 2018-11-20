@@ -12,18 +12,26 @@
   }
   .video-popup-iframe {
     position: absolute;
-    width: 800px;
+    width: 850px;
     height: 600px;
-
   }
 }
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 900px) {
   #video-popup {
     .video-popup-iframe {
-      position: absolute;
       width: 600px;
       height: 450px;
+    }
+  }
+}
 
+@media screen and (max-width: 650px) {
+  #video-popup {
+    &[active] {
+      display: grid;
+    }
+    .video-popup-iframe {
+      width: 100%;
     }
   }
 }

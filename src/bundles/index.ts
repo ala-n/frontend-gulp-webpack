@@ -3,13 +3,11 @@ import '../components/core/slide-carousel/ts/slide-carousel.ts';
 import '../components/main-page/language-menu/ts/drop-down-menu.ts';
 import '../components/main-page/language-menu/ts/drop-down-trigger.ts';
 
-import VideoOverlay from '../components/core/video-overlay/ts/video-overlay';
 import VideoService from '../components/core/video-overlay/ts/video-service';
 import VideoTrigger from '../components/core/video-overlay/ts/video-trigger';
 
 const COMPONENTS_LIST = [
-	VideoService,
-	VideoOverlay
+	VideoService
 ];
 
 COMPONENTS_LIST.forEach((Component) => {

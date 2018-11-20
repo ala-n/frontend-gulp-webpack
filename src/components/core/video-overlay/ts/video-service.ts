@@ -21,7 +21,7 @@ class VideoService {
 		inst.hide();
 	}
 
-	_popup: PopupMenu;
+	private _popup: PopupMenu;
 
 	constructor() {
 		if (instance) {
@@ -41,13 +41,13 @@ class VideoService {
 		this._popup.querySelector('iframe').src = url;
 	}
 
-	show() {
+	private show() {
 		if (this._popup && !this._popup.active) {
 			this._popup.active = true;
 		}
 	}
 
-	hide() {
+	private hide() {
 		if (this._popup && this._popup.active) {
 			this._popup.active = false;
 		}
@@ -57,7 +57,7 @@ class VideoService {
 		const fragment = document.createElement('template');
 		fragment.innerHTML =
 			`<popup-menu id="video-popup">
-				<iframe class="video-popup-iframe" frameborder="0" allowfullscreen></iframe>
+					<iframe class="video-popup-iframe" frameborder="0" allowfullscreen></iframe>
 			 </popup-menu>`;
 		return fragment.content.firstElementChild as HTMLElement;
 	}

@@ -39,19 +39,14 @@ class SlideCarousel extends HTMLElement {
 	};
 
 	connectedCallback() {
-		this.bindEvents();
+		this.addEventListener('click', this._onClick);
 	}
 
 	disconnectedCallback() {
 		this.removeEventListener('click', this._onClick);
 	}
 
-	bindEvents() {
-		this.addEventListener('click', this._onClick);
-	}
-
-
-	setActive(target: string | number) {
+	private setActive(target: string | number) {
 		switch (target) {
 			case 'prev':
 				this.activeIndex--;
@@ -64,7 +59,7 @@ class SlideCarousel extends HTMLElement {
 		}
 	}
 
-	triggerSlideChange() {
+	private triggerSlideChange() {
 		const event = new CustomEvent('sc-slide-changed', {
 			bubbles: true
 		});

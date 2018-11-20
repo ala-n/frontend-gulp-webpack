@@ -1,7 +1,6 @@
 @color-text: #fff;
 
 .header {
-  z-index: 99;
   display: flex;
   height: 70px;
   color: @color-text;
@@ -20,21 +19,5 @@
     font-weight: bold;
     line-height: 1.7;
     text-decoration: none;
-  }
-}
-
-@media screen and (max-width: 700px) {
-  .header {
-    .language {
-      .language-icon {
-        display: flex;
-      }
-      .language-change {
-        padding-left: 7px;
-        &::before {
-          content: '';
-        }
-      }
-    }
   }
 }
