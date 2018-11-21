@@ -28,11 +28,15 @@ class VideoService {
 			return instance;
 		}
 		instance = this;
-		instance._popup = instance._createElem() as PopupMenu;
-		document.querySelector('body').appendChild(instance._popup);
+		this._popup = this._createElem() as PopupMenu;
+		document.querySelector('body').appendChild(this._popup);
+		this.bindEvents();
 	}
 
 
+	bindEvents() {
+		this._popup.addEventListener('click', () => this.hide());
+	}
 	get utl(): string {
 		return this._popup.querySelector('iframe').src;
 	}
@@ -42,13 +46,13 @@ class VideoService {
 	}
 
 	private show() {
-		if (this._popup && !this._popup.active) {
+		if (!this._popup.active) {
 			this._popup.active = true;
 		}
 	}
 
 	private hide() {
-		if (this._popup && this._popup.active) {
+		if (this._popup.active) {
 			this._popup.active = false;
 		}
 	}

@@ -23,17 +23,21 @@ hbswax(handlebars)
 		}
 	});
 
-handlebars.registerHelper('include', function (name) {
+handlebars.registerHelper('include', function (name, options) {
 	const partial = handlebars.partials[name];
 
 	const dataPath = partial.path.replace(/\\([^\\]+)$/, '\\data.json');
 	let context = {};
 
+	let field = null;
+	if (options && options.hash.var) { field = options.hash.var; }
+
 	try {
 		const content = fs.readFileSync(dataPath);
 		context = JSON.parse(content);
-    } catch (e) {
-        console.error(e);
+		if (field) { context.var = context[field]; }
+	} catch (e) {
+		console.error(e);
 	}
 
 	return partial(Object.assign({}, this, context));

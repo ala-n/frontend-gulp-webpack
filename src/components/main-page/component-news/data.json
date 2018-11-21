@@ -1,6 +1,8 @@
 {
  "var1":{
    "header":"",
-   "desc":"> data/text.html"
+//   "text":"> data/text.html",
+   "text":"The matching is done using depth-first pre-order traversal of the document's nodes starting with the first element in the document's markup and iterating through sequential nodes by order of the number of child nodes. Characters that are not part of standard CSS syntax must be escaped using a backslash character. Since JavaScript also uses backslash escaping, be especially careful when writing string literals using these characters. See Escaping special characters for more information.An Element object representing the first element in the document that matches the specified set of CSS selectors, or null is returned if there are no matches.The matching is done using depth-first pre-order traversal of the document's nodes starting with the first element in the document's markup and iterating through sequential nodes by order ofThe matching is done using depth-first pre-order traversal of the document's nodes starting with the first element in the document's markup and iterating through sequential nodes by order ofThe matching is done using depth-first pre-order traversal of the document's nodes starting with the first element in the document's markup and iterating through sequential nodes by order of",
+   "link":"https://www.youtube.com/embed/TzAshjkhFQw"
  }
 }

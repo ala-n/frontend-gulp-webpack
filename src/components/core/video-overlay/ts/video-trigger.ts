@@ -11,8 +11,6 @@ class VideoTrigger {
         const target = event.target as HTMLElement;
         const url = target.getAttribute('href');
         VideoService.show(url);
-        /*to close video*/
-        document.getElementById('video-popup').addEventListener('click', () => {VideoService.hide()}, false);
     }
 }
 
