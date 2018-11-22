@@ -6,10 +6,7 @@
     </drop-down-trigger>
     <drop-down-menu id="lang-selector" class="popup-menu">
         <ul>
-            <li><a href="javascript: void 0;" active-item>eng</a></li>
-            <li><a href="javascript: void 0;">rus</a></li>
-            <li><a href="javascript: void 0;">deu</a></li>
-            <li><a href="javascript: void 0;">bel</a></li>
+            {{#each languages}}<li><a href="javascript: void 0;">{{this}}</a></li>{{/each}}
         </ul>
     </drop-down-menu>
 </nav>
