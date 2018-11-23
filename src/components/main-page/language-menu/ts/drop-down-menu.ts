@@ -20,7 +20,9 @@ class DropDownMenu extends PopupMenu {
 	}
 
 	set activeElem(value: HTMLElement) {
-		this.activeElem.toggleAttribute('active-item');
+		if (this.activeElem) {
+			this.activeElem.toggleAttribute('active-item');
+		}
 		value.toggleAttribute('active-item');
 	}
 

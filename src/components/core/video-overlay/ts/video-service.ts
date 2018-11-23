@@ -34,7 +34,7 @@ class VideoService {
 	}
 
 
-	bindEvents() {
+	private bindEvents() {
 		this._popup.addEventListener('click', () => this.hide());
 	}
 	get utl(): string {
