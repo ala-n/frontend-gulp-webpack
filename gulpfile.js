@@ -18,6 +18,7 @@ const autoprefixer = require('autoprefixer');
 // UTILS
 const sourcemaps = require('gulp-sourcemaps');
 const clean = require('gulp-clean');
+const aemsync = require('aemsync');
 
 // DEV ENV
 const nodemon = require('gulp-nodemon');
@@ -68,6 +69,26 @@ function attachJCRIdentifier(){
         .pipe(gulp.dest(paths.OUTPUT_DIR_PROD));
 
 }
+
+function aemsyncWatch(){
+	const workingDirs = paths.AEMSYNC_PATHS;
+
+	const onPushEnd = (err, host) => {
+		if (err) {
+			return console.log(`Error when pushing package to ${host}.`, err)
+		}
+		console.log(`Package pushed to ${host}.`)
+	};
+	workingDirs.forEach(function (dir) {
+		aemsync({
+			workingDir: dir,
+			targets: paths.AEMSYNC_TARGETS,
+			onPushEnd: onPushEnd
+		});
+	});
+
+}
+
 gulp.task('tslint', () =>
     gulp.src(['src/**/' + '*.ts', '!node_modules/**'])
         .pipe(tslint())
@@ -78,6 +99,7 @@ gulp.task('build-less', () => buildLess(paths.OUTPUT_DIR));
 gulp.task('prod-less', () => buildLess(paths.OUTPUT_DIR_PROD));
 gulp.task('prod-build-ts', prodWebpackConfig);
 gulp.task('dev-build-ts', devWebpackConfig);
+gulp.task('aemsync', aemsyncWatch);
 
 function serveTask() {
     browserSync.init({
