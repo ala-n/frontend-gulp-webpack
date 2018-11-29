@@ -96,6 +96,15 @@ app.get('/*', function (req, res, next) {
     }
     next();
 });
+
+const  router = express.Router();
+
+app.use('./rest/', router);
+
+// router.get('post', ) {
+//
+// }
+
 app.listen(3330, function () {
     console.log('Example app listening on port 3330!');
 });
