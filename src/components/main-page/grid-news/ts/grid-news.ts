@@ -5,10 +5,15 @@ class GridNews extends Grid {
 		super();
 	}
 
+	get countNewsOnPage(): number {
+		// + count news carousel?
+		return document.querySelectorAll('.container-news').length;
+	}
 	// _onUpdate = () => this.rerender();
 
 	connectedCallback() {
-		this.addEventListener('click', this._onClick);
+		this.buttonLoad.addEventListener('click', this._onClick);
+		console.log(this.countNewsOnPage);
 	}
 
 	// private rerender() {

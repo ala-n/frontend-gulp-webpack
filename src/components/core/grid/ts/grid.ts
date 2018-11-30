@@ -3,7 +3,13 @@ class Grid extends HTMLElement {
 		super();
 	}
 
+	get buttonLoad(): HTMLElement {
+		const id = this.getAttribute('target');
+		return document.getElementById(id);
+	}
+
 	_onClick = (event: MouseEvent) => {
+		// ?
 		event.stopPropagation();
 		event.preventDefault();
 	};
