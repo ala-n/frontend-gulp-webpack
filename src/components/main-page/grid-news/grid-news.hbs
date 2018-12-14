@@ -1,14 +1,14 @@
-<grid-news target="list-news">
-    <article class="container-news"></article>
-    <section class="articles">
-        {{{include 'component-news' var='news1'}}}
-        {{{include 'component-news' var='news3'}}}
-        {{{include 'list-news'}}}
-        {{{include 'component-news' var='news2'}}}
-        {{{include 'component-news' var='news2'}}}
-        {{{include 'component-news' var='news2'}}}
+<grid-element target="list-news">
+    <section class="articles" data-items>
+        {{> list-news list=news}}
+        {{> component-news var=news.[0]}}
+        {{> component-news var=news.[1]}}
+        {{> component-news var=news.[2]}}
+        {{> component-news var=news.[3]}}
+        {{> component-news var=news.[4]}}
     </section>
-</grid-news>
-<button type="button" id="list-news" class="button-load">
-    <p>load more...</p>
-</button>
+</grid-element>
+<div id="load"></div>
+<!--<button type="button" id="list-news" class="button-load">-->
+<!--<p>load more...</p>-->
+<!--</button>-->

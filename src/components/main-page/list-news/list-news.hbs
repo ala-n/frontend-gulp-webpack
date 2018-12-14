@@ -7,9 +7,9 @@
         </button>
 
         <div data-slide-container>
-            <div data-slide-item class="active-slide">{{{include 'component-news' var='news1'}}}</div>
-            <div data-slide-item >{{{include 'component-news' var='news3'}}}</div>
-            <div data-slide-item >{{{include 'component-news' var='news2'}}}</div>
+            <div data-slide-item class="active-slide">{{> component-news var=list.[0]}}</div>
+            <div data-slide-item >{{> component-news var=list.[5]}}</div>
+            <div data-slide-item >{{> component-news var=list.[2]}}</div>
         </div>
         <button class="btn-next btn-icon" >
             <svg viewBox="0 0 35 50" xmlns="http://www.w3.org/2000/svg" class="icon-sm" data-slide-target="next">

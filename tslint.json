@@ -23,7 +23,8 @@
     "indent": false,
     "variable-name": false,
     "semicolon": false,
-    "no-unused-expression": false
+    "no-unused-expression": false,
+    "object-literal-sort-keys": false
   },
   "rulesDirectory": []
 }

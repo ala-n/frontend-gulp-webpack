@@ -104,7 +104,7 @@ gulp.task('aemsync', aemsyncWatch);
 function serveTask() {
     browserSync.init({
         proxy: {
-            target: 'localhost:3330',
+            target: `localhost:${paths.PORT}`,
         },
         browser: "chrome",
     });
