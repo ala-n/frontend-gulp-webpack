@@ -7,13 +7,11 @@ class Grid extends HTMLElement {
 	}
 
 	get flagLoad(): HTMLElement {
-		// const id = this.getAttribute('target');
 		return document.getElementById('load');
 	}
 
 	get countElementsOnPage(): number {
-		const itemSelector = 'article'; // TODO: move to params
-		return this.querySelectorAll(`[data-items] > ${itemSelector}`).length;
+		return this.querySelector('[data-items]').childElementCount;
 	}
 
 	buildElements(dataElem: string) {
@@ -21,12 +19,12 @@ class Grid extends HTMLElement {
 		template.innerHTML = dataElem;
 		console.log(template.content);
 		document.querySelector('.articles').appendChild(template.content);
-		// this.loadNews();
+		this.loadNews();
 	}
 
 
 	getElements() {
-		const url = `/rest/main-page.html?start=${this.countElementsOnPage - 2}&count=${this.maxCountElements + this.countElementsOnPage - 2}`;
+		const url = `/rest/main-page.html?start=${this.countElementsOnPage}&count=${this.maxCountElements + this.countElementsOnPage}`;
 		return fetch(url, {
 			method: 'GET',
 			headers: {
@@ -37,17 +35,14 @@ class Grid extends HTMLElement {
 				return response.ok ? response.text() : response.text().then((text) => Promise.reject(text));
 			})
 			.then((response) => {
-				this.buildElements(response);
+				if (response) {
+                    this.buildElements(response);
+                }
 			})
 			.catch(() => {
 				console.log('Error!');
 			});
 	}
-
-	// _onClick = (event: MouseEvent) => {
-	// 	this.getElements();
-	// 	event.stopPropagation();
-	// };
 
 	loadNews() {
 		const iObserver = new IntersectionObserver((entries) => {
