@@ -17,11 +17,9 @@ class Grid extends HTMLElement {
 	buildElements(dataElem: string) {
 		const template = document.createElement('template');
 		template.innerHTML = dataElem;
-		console.log(template.content);
-		document.querySelector('.articles').appendChild(template.content);
+		document.querySelector('[data-items]').appendChild(template.content);
 		this.loadNews();
 	}
-
 
 	getElements() {
 		const url = `/rest/main-page.html?start=${this.countElementsOnPage}&count=${this.maxCountElements + this.countElementsOnPage}`;
@@ -30,31 +28,33 @@ class Grid extends HTMLElement {
 			headers: {
 				'Content-Type': 'application/json; charset=utf-8',
 			}
+		}).then((response) => {
+			return response.ok ? response.text() : response.text().then((text) => Promise.reject(text));
 		})
 			.then((response) => {
-				return response.ok ? response.text() : response.text().then((text) => Promise.reject(text));
-			})
-			.then((response) => {
 				if (response) {
-                    this.buildElements(response);
-                }
+					this.buildElements(response);
+				}
 			})
 			.catch(() => {
 				console.log('Error!');
 			});
 	}
-
-	loadNews() {
-		const iObserver = new IntersectionObserver((entries) => {
-			for (const entry of entries) {
-				if (entry.isIntersecting) {
-					const target = entry.target;
-					this.getElements();
-					console.log(target, entry, 'jrghu');
-					iObserver.unobserve(target);
-				}
+	handleIntersect(entries: any, iObserver: any) {
+		for (const entry of entries) {
+			if (entry.isIntersecting) {
+				const target = entry.target;
+				this.getElements();
+				iObserver.unobserve(target);
 			}
-		});
+		}
+	}
+	loadNews() {
+		const options = {
+			rootMargin: '0px',
+			threshold: 1
+		};
+		const iObserver = new IntersectionObserver(this.handleIntersect.bind(this), options);
 		iObserver.observe(this.flagLoad);
 	}
 
