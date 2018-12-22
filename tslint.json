@@ -25,7 +25,8 @@
     "semicolon": false,
     "no-unused-expression": false,
     "object-literal-sort-keys": false,
-    "prefer-for-of": false
+    "prefer-for-of": false,
+    "max-classes-per-file": 3
   },
   "rulesDirectory": []
 }

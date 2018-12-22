@@ -1,4 +1,5 @@
 import MatchQuery from '../../match-query/ts/match-query';
+import Spinner from '../../spinner/ts/spinner';
 
 class Grid extends HTMLElement {
 
@@ -6,6 +7,8 @@ class Grid extends HTMLElement {
 		threshold: 1
 	};
 
+	spinner: Spinner;
+	matchQuery: MatchQuery;
 	maxCountElements: number;
 	iObserver: IntersectionObserver;
 	urlServer: string;
@@ -15,10 +18,6 @@ class Grid extends HTMLElement {
 		this.maxCountElements = +this.getAttribute('data-count');
 		this.iObserver = new IntersectionObserver(this.handleIntersect.bind(this), Grid.observeOptions);
 		this.urlServer = '/rest/main-page.html';
-		// this.loadElements = () => {
-		// 	setTimeout(() => this.loadElements(), 1000);
-		// 	return Promise.resolve();
-		// }
 	}
 
 	buildMarkerEl() {
@@ -39,13 +38,14 @@ class Grid extends HTMLElement {
 	}
 
 	get countLoadedEls(): number {
-		const matchQuery = new MatchQuery(this.getAttribute('data-count-query'));
-		matchQuery.query();
-		console.log(matchQuery.value);
-		return matchQuery.value;
+		const count = +this.matchQuery.matchedValue;
+		return (this.countEls % count || this.countEls % count) ? (this.countEls % count === 1 ? count - 1 : count - this.countEls % count) : count;
 	}
 
 	loadElements() {
+
+		// return Promise.resolve();
+
 		const url = `${this.urlServer}?start=${this.countEls}&count=${this.countLoadedEls + this.countEls}`;
 		return fetch(url, {
 			method: 'GET',
@@ -67,7 +67,10 @@ class Grid extends HTMLElement {
 		for (const entry of entries) {
 			if (entry.isIntersecting) {
 				const target = entry.target;
-				this.loadElements();
+				this.appendChild(this.spinner.buildSpinnerEl);
+				setTimeout(() => {
+					this.loadElements();
+				}, 1000);
 				iObserver.unobserve(target);
 			}
 		}
@@ -83,6 +86,8 @@ class Grid extends HTMLElement {
 	}
 
 	connectedCallback() {
+		this.spinner = Spinner.spin();
+		this.matchQuery = MatchQuery.parse(this.getAttribute('data-count-query'));
 		this.initMarker();
 	}
 }
