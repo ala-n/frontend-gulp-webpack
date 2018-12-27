@@ -39,7 +39,11 @@ class Grid extends HTMLElement {
 
     get countLoadedEls(): number {
         const count = +this.matchQuery.matchedValue;
-        return (this.countEls % count || this.countEls % count) ? (this.countEls % count === 1 ? count - 1 : count - this.countEls % count) : count;
+        switch (this.countEls % count) {
+			case 0: return count;
+			case 1: return count - 1;
+			default: return count - this.countEls % count;
+		}
     }
 
     loadElements() {
@@ -68,7 +72,7 @@ class Grid extends HTMLElement {
                 this.appendChild(this.spinner.buildSpinnerEl);
                 setTimeout(() => {
                     this.loadElements();
-                }, 1000);
+                }, 500);
                 iObserver.unobserve(target);
             }
         }
