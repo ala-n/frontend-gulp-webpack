@@ -63,17 +63,11 @@ function renderFile(res, pathFile) {
 
 function renderDir(res, pathDir, fsPath) {
 	const fileNames = fs.readdirSync(fsPath);
-	let indexRenderDir = null;
-	fileNames.forEach((fn, index) => {
-		if (/^_/.test(fn)) {
-			indexRenderDir = index;
-		}
-	});
-	fileNames.splice(indexRenderDir, 1);
-	const links = fileNames.map((fn) => ({
-		name: fn,
-		link: path.join(pathDir, fn)
-	}));
+	const links = fileNames.filter((fn) => !/^_/.test(fn))
+		.map((fn) => ({
+			name: fn,
+			link: path.join(pathDir, fn)
+		}));
 	res.render('__renderdir', {
 		links
 	});
@@ -113,7 +107,7 @@ restRouter.get('/main-page.html', function (req, res) {
 		start: 0,
 		count: 3
 	}, req.query);
-	console.log(params);
+	console.log('processing tiles request with param ', { params });
 	res.render('__article-list', {
 		news: newsData.news.slice(params.start, params.count)
 	})

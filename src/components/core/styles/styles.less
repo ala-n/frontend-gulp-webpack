@@ -18,39 +18,46 @@ main {
   background: #f9f9f9;
 }
 
+// move to loader.less
 .container-loader{
+  display: none;
   height: 25px;
-  display: flex;
   margin: 0 auto;
+
+  [loading] &, .loading & {
+    display: flex;
+  }
+
+  .loader,
+  .loader:before,
+  .loader:after {
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+    animation: load 1.8s infinite ease-in-out;
+  }
+  .loader {
+    position: relative;
+    margin: -1em auto;
+    font-size: 10px;
+    color: #717171;
+    animation-delay: -0.16s;
+  }
+  .loader:before,
+  .loader:after {
+    content: '';
+    position: absolute;
+    top: 0;
+  }
+  .loader:before {
+    left: -2em;
+    animation-delay: -0.32s;
+  }
+  .loader:after {
+    left: 2em;
+  }
 }
-.loader,
-.loader:before,
-.loader:after {
-  width: 1em;
-  height: 1em;
-  border-radius: 50%;
-  animation: load 1.8s infinite ease-in-out;
-}
-.loader {
-  position: relative;
-  margin: -1em auto;
-  font-size: 10px;
-  color: #717171;
-  animation-delay: -0.16s;
-}
-.loader:before,
-.loader:after {
-  content: '';
-  position: absolute;
-  top: 0;
-}
-.loader:before {
-  left: -2em;
-  animation-delay: -0.32s;
-}
-.loader:after {
-  left: 2em;
-}
+
 @keyframes load {
   0%,
   80%,

@@ -1,97 +1,129 @@
 import MatchQuery from '../../match-query/ts/match-query';
-import Spinner from '../../spinner/ts/spinner';
+import {delay} from '../../utils/promise-utils';
 
 class Grid extends HTMLElement {
 
-    static observeOptions = {
-        threshold: 1
-    };
+	static observeOptions = {
+		threshold: 1
+	};
 
-    spinner: Spinner;
-    matchQuery: MatchQuery;
-    maxCountElements: number;
-    iObserver: IntersectionObserver;
-    urlServer: string;
+	matchQuery: MatchQuery;
+	iObserver: IntersectionObserver;
+	itemsCountGrid: number;
+	_loadingPromise: Promise<any>;
 
-    constructor() {
-        super();
-        this.maxCountElements = +this.getAttribute('data-count');
-        this.iObserver = new IntersectionObserver(this.handleIntersect.bind(this), Grid.observeOptions);
-        this.urlServer = '/rest/main-page.html';
-    }
+	constructor() {
+		super();
+		this.iObserver = new IntersectionObserver(this.onIntersect.bind(this), Grid.observeOptions);
+	}
 
-    buildMarkerEl() {
-        const el = document.createElement('div');
-        el.setAttribute('data-loadmarker', '');
-        return el;
-    }
+	connectedCallback() {
+		this.matchQuery = MatchQuery.parse(this.getAttribute('data-count-query'));
+		this.appendMarker();
+	}
 
-    get countEls(): number {
-        return this.querySelector('[data-items]').childElementCount;
-    }
+	get url() {
+		return this.dataset.url;
+	}
 
-    buildElements(dataElem: string) {
-        const template = document.createElement('template');
-        template.innerHTML = dataElem;
-        document.querySelector('[data-items]').appendChild(template.content);
-        this.initMarker();
-    }
+	buildMarkerEl() {
+		const el = document.createElement('div');
+		el.setAttribute('data-loadmarker', '');
+		return el;
+	}
 
-    get countLoadedEls(): number {
-        const count = +this.matchQuery.matchedValue;
-        switch (this.countEls % count) {
-			case 0: return count;
-			case 1: return count - 1;
-			default: return count - this.countEls % count;
+	get itemsContainer() {
+		return this.querySelector('[data-items-container]');
+	}
+
+	get itemsCount() {
+		return this.itemsContainer.childElementCount;
+	}
+
+	buildItems(itemsHTML: string) {
+		if (itemsHTML) {
+			const template = document.createElement('template');
+			template.innerHTML = itemsHTML;
+			return template.content;
 		}
-    }
+		return null;
+	}
 
-    loadElements() {
-        const url = `${this.urlServer}?start=${this.countEls}&count=${this.countLoadedEls + this.countEls}`;
-        return fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json; charset=utf-8',
-            }
-        }).then((response) => {
-            return response.ok ? response.text() : response.text().then((text) => Promise.reject(text));
-        }).then((response) => {
-            if (response) {
-                this.buildElements(response);
-            }
-            this.removeChild(this.lastChild);
-        }).catch(() => {
-            console.log('Error!');
-        });
-    }
+	get loadedElsCount(): number {
+		const count = +this.matchQuery.matchedValue;
+		return count - this.itemsCount % count;
+	}
 
-    handleIntersect(entries: any, iObserver: any) {
-        for (const entry of entries) {
-            if (entry.isIntersecting) {
-                const target = entry.target;
-                this.appendChild(this.spinner.buildSpinnerEl);
-                setTimeout(() => {
-                    this.loadElements();
-                }, 500);
-                iObserver.unobserve(target);
-            }
-        }
-    }
+	buildRequestUrl() {
+		return `${this.url}?start=${this.itemsCount}&count=${this.loadedElsCount + this.itemsCount}`;
+	}
 
-    initMarker() {
-        let markerEl = this.querySelector('[data-loadmarker]');
-        if (!markerEl) {
-            markerEl = this.buildMarkerEl();
-            this.appendChild(markerEl);
-        }
-        this.iObserver.observe(markerEl);
-    }
+	loadMore() {
+		const url = this.buildRequestUrl();
+		this.setAttribute('loading', '');
+		console.log(this.itemsCount, this.loadedElsCount);
+		// if (this.loadedElsCount === 3) {
+		// console.log(this.loadedElsCount);
+		// this.setAttribute('loading', '');
+		// }
+		if (this._loadingPromise) {
+			return;
+		}
+		const finallyCb = () => {
+			this._loadingPromise = null;
+			this.removeAttribute('loading');
+		};
+		this._loadingPromise = fetch(url, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json; charset=utf-8',
+			}
+		});
+		if (this.hasAttribute('debug-delay')) {
+			this._loadingPromise = delay(this._loadingPromise, +this.getAttribute('debug-delay'));
+		}
+		this._loadingPromise.then((response: Response) => {
+			return response.ok ? response.text() : response.text().then((text) => Promise.reject(text));
+		}).then((r) => {
+			this.onResponse(r);
+			finallyCb();
+		}).catch(() => {
+			this.onError();
+			finallyCb();
+		})
+	}
 
-    connectedCallback() {
-        this.spinner = Spinner.spin();
-        this.matchQuery = MatchQuery.parse(this.getAttribute('data-count-query'));
-        this.initMarker();
-    }
+	onResponse = (responseText: string) => {
+		const items = this.buildItems(responseText);
+		if (items) {
+			this.itemsContainer.appendChild(items);
+			this.appendMarker();
+		}
+	};
+	onError = () => {
+		console.log('Error!');
+	};
+
+	onIntersect(entries: IntersectionObserverEntry[], iObserver: IntersectionObserver) {
+		for (const entry of entries) {
+			if (entry.isIntersecting) {
+				this.loadMore();
+				iObserver.unobserve(entry.target);
+			}
+		}
+	}
+
+	get _marker() {
+		return this.querySelector('[data-loadmarker]');
+	}
+
+	appendMarker() {
+		let marker = this._marker;
+		if (!marker) {
+			this.appendChild(marker = this.buildMarkerEl());
+		}
+		this.iObserver.observe(marker);
+	}
 }
 
 customElements.define('grid-element', Grid);
