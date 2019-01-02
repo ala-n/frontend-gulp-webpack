@@ -14,6 +14,7 @@ class Grid extends HTMLElement {
 
 	constructor() {
 		super();
+		console.log(this.dataset.news, JSON.stringify(this.dataset.news).split(','));
 		this.iObserver = new IntersectionObserver(this.onIntersect.bind(this), Grid.observeOptions);
 	}
 

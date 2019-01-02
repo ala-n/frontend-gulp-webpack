@@ -1,5 +1,5 @@
-<grid-element data-count-query = "(max-width:700px)=>1|(max-width:1100px)=>2 |3 "
-              data-url="/rest/main-page.html" debug-delay="1000">
+<grid-element data-count-query = "(max-width:700px)=>1|(max-width:1100px)=>2|3 "
+              data-url="/rest/main-page.html" debug-delay="1000" data-news="{{this.news}}">
     <section class="articles" data-items-container>
         {{> list-news list=news}}
         {{> component-news var=news.[0]}}
