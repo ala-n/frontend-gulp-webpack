@@ -9,12 +9,12 @@ class Grid extends HTMLElement {
 
 	matchQuery: MatchQuery;
 	iObserver: IntersectionObserver;
-	itemsCountGrid: number;
+	countElsGrid: number;
 	_loadingPromise: Promise<any>;
 
 	constructor() {
 		super();
-		console.log(this.dataset.news, JSON.stringify(this.dataset.news).split(','));
+		this.getCountEls();
 		this.iObserver = new IntersectionObserver(this.onIntersect.bind(this), Grid.observeOptions);
 	}
 
@@ -55,18 +55,9 @@ class Grid extends HTMLElement {
 		return count - this.itemsCount % count;
 	}
 
-	buildRequestUrl() {
-		return `${this.url}?start=${this.itemsCount}&count=${this.loadedElsCount + this.itemsCount}`;
-	}
-
 	loadMore() {
-		const url = this.buildRequestUrl();
+		const url = `${this.url}?start=${this.itemsCount}&count=${this.loadedElsCount + this.itemsCount}`;
 		this.setAttribute('loading', '');
-		console.log(this.itemsCount, this.loadedElsCount);
-		// if (this.loadedElsCount === 3) {
-		// console.log(this.loadedElsCount);
-		// this.setAttribute('loading', '');
-		// }
 		if (this._loadingPromise) {
 			return;
 		}
@@ -94,6 +85,24 @@ class Grid extends HTMLElement {
 		})
 	}
 
+	getCountEls() {
+		const url = `${this.url}/countElm`;
+		const a = fetch(url, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json; charset=utf-8',
+			}
+		});
+		a.then((response: Response) => {
+			return response.ok ? response.text() : response.text().then((text) => Promise.reject(text))
+		}).then((response) => {
+			this.countElsGrid = +response;
+			return response;
+		}).catch(() => {
+			this.onError();
+		});
+	}
+
 	onResponse = (responseText: string) => {
 		const items = this.buildItems(responseText);
 		if (items) {
@@ -108,7 +117,9 @@ class Grid extends HTMLElement {
 	onIntersect(entries: IntersectionObserverEntry[], iObserver: IntersectionObserver) {
 		for (const entry of entries) {
 			if (entry.isIntersecting) {
-				this.loadMore();
+				if (this.countElsGrid > this.itemsCount) {
+					this.loadMore();
+				}
 				iObserver.unobserve(entry.target);
 			}
 		}
@@ -128,4 +139,3 @@ class Grid extends HTMLElement {
 }
 
 customElements.define('grid-element', Grid);
-

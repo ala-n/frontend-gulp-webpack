@@ -107,10 +107,19 @@ restRouter.get('/main-page.html', function (req, res) {
 		start: 0,
 		count: 3
 	}, req.query);
-	console.log('processing tiles request with param ', { params });
+	console.log('processing tiles request with param ', {params});
 	res.render('__article-list', {
 		news: newsData.news.slice(params.start, params.count)
 	})
+});
+
+restRouter.get('/main-page.html/countElm', function (req, res) {
+	const newsData = JSON.parse(fs.readFileSync('./src/components/main-page/grid-news/data.json'));
+	if (newsData) {
+		res.send(newsData.news.length.toString());
+	} else {
+		res.status(404).end();
+	}
 });
 
 app.listen(constants.PORT, function () {
