@@ -101,7 +101,7 @@ app.get('/*', function (req, res, next) {
 	next();
 });
 
-restRouter.get('/main-page.html', function (req, res) {
+restRouter.get('/main-page.html/elsCount', function (req, res) {
 	const newsData = JSON.parse(fs.readFileSync('./src/components/main-page/grid-news/data.json'));
 	const params = Object.assign({
 		start: 0,
@@ -113,10 +113,10 @@ restRouter.get('/main-page.html', function (req, res) {
 	})
 });
 
-restRouter.get('/main-page.html/countElm', function (req, res) {
+restRouter.get('/main-page.html/Els', function (req, res) {
 	const newsData = JSON.parse(fs.readFileSync('./src/components/main-page/grid-news/data.json'));
 	if (newsData) {
-		res.send(newsData.news.length.toString());
+		res.send(newsData.news);
 	} else {
 		res.status(404).end();
 	}

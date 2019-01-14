@@ -9,16 +9,16 @@ class Grid extends HTMLElement {
 
 	matchQuery: MatchQuery;
 	iObserver: IntersectionObserver;
-	countElsGrid: number;
+	gridElsCount: number;
 	_loadingPromise: Promise<any>;
 
 	constructor() {
 		super();
-		this.getCountEls();
 		this.iObserver = new IntersectionObserver(this.onIntersect.bind(this), Grid.observeOptions);
 	}
 
 	connectedCallback() {
+		this.getCountEls();
 		this.matchQuery = MatchQuery.parse(this.getAttribute('data-count-query'));
 		this.appendMarker();
 	}
@@ -56,7 +56,7 @@ class Grid extends HTMLElement {
 	}
 
 	loadMore() {
-		const url = `${this.url}?start=${this.itemsCount}&count=${this.loadedElsCount + this.itemsCount}`;
+		const url = `${this.url}/elsCount?start=${this.itemsCount}&count=${this.loadedElsCount + this.itemsCount}`;
 		this.setAttribute('loading', '');
 		if (this._loadingPromise) {
 			return;
@@ -86,21 +86,20 @@ class Grid extends HTMLElement {
 	}
 
 	getCountEls() {
-		const url = `${this.url}/countElm`;
-		const a = fetch(url, {
+		const url = `${this.url}/Els`;
+		const loadingPromise = fetch(url, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json; charset=utf-8',
 			}
 		});
-		a.then((response: Response) => {
-			return response.ok ? response.text() : response.text().then((text) => Promise.reject(text))
-		}).then((response) => {
-			this.countElsGrid = +response;
-			return response;
+		loadingPromise.then((response: Response) => {
+			return response.ok ? response.text() : response.text().then((text) => Promise.reject(text));
+		}).then((r) => {
+			this.gridElsCount = JSON.parse(r).length;
 		}).catch(() => {
 			this.onError();
-		});
+		})
 	}
 
 	onResponse = (responseText: string) => {
@@ -117,7 +116,7 @@ class Grid extends HTMLElement {
 	onIntersect(entries: IntersectionObserverEntry[], iObserver: IntersectionObserver) {
 		for (const entry of entries) {
 			if (entry.isIntersecting) {
-				if (this.countElsGrid > this.itemsCount) {
+				if (this.gridElsCount > this.itemsCount || !this.gridElsCount) {
 					this.loadMore();
 				}
 				iObserver.unobserve(entry.target);
