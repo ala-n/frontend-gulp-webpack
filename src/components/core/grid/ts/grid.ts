@@ -14,11 +14,11 @@ class Grid extends HTMLElement {
 
 	constructor() {
 		super();
+		this.gridElsCount = +this.dataset.count;
 		this.iObserver = new IntersectionObserver(this.onIntersect.bind(this), Grid.observeOptions);
 	}
 
 	connectedCallback() {
-		this.getCountEls();
 		this.matchQuery = MatchQuery.parse(this.getAttribute('data-count-query'));
 		this.appendMarker();
 	}
@@ -85,23 +85,6 @@ class Grid extends HTMLElement {
 		})
 	}
 
-	getCountEls() {
-		const url = `${this.url}/Els`;
-		const loadingPromise = fetch(url, {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json; charset=utf-8',
-			}
-		});
-		loadingPromise.then((response: Response) => {
-			return response.ok ? response.text() : response.text().then((text) => Promise.reject(text));
-		}).then((r) => {
-			this.gridElsCount = JSON.parse(r).length;
-		}).catch(() => {
-			this.onError();
-		})
-	}
-
 	onResponse = (responseText: string) => {
 		const items = this.buildItems(responseText);
 		if (items) {
@@ -116,7 +99,7 @@ class Grid extends HTMLElement {
 	onIntersect(entries: IntersectionObserverEntry[], iObserver: IntersectionObserver) {
 		for (const entry of entries) {
 			if (entry.isIntersecting) {
-				if (this.gridElsCount > this.itemsCount || !this.gridElsCount) {
+				if (this.gridElsCount > this.itemsCount) {
 					this.loadMore();
 				}
 				iObserver.unobserve(entry.target);
