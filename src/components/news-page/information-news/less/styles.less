@@ -2,60 +2,56 @@
   position: relative;
   width: 70%;
   padding: 20px 30px 20px 30px;
-  background: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.8);
 }
 
 .news-content {
   width: 100%;
-  background: #fff;
-  flex: 1 0 auto;
-  .container-news {
-    display: flex;
-    text-align: center;
-    .container-information {
-      display: flex;
-      padding-top: 160px;
-      flex-direction: column;
-      align-items: center;
-      .name-information {
+  display: flex;
+  .component-news {
+    box-shadow: none;
+      .container-information {
+        display: flex;
+        padding-top: 160px;
+        flex-direction: column;
+        align-items: center;
+        .name-information, .text-information{
+          margin: 0;
+          .content;
+        }
+        .name-information {
+          text-align: center;
+          font-size: 35px;
+        }
+        .text-information {
+          height: auto;
+          text-align: justify;;
+          font-size: 17px;
+        }
+      }
+      .text-information-more {
+        display: none;
         margin: 0;
-        height: 35px;
-        text-align: center;
-        font-size: 35px;
-        .content;
       }
-      .text-information {
-        height: auto;
-        text-align: justify;;
-        font-size: 17px;
-        overflow: hidden;
-        .content;
-      }
-    }
-    .text-information-more {
-      display: none;
-    }
-    .image-news {
-      position: fixed;
-      min-width: 650px;
-      width: 100%;
-      img {
-        width: 100%;
-      }
-      &::after, &::before {
-        content: '';
+      .image-news {
         position: absolute;
-        left: 0;
-        width: 100%;
-        height: 100%;
+        min-width: 650px;
+        img {
+          position: static;
+          width: 100%;
+          opacity: .6;
+        }
+        &::after, &::before {
+          content: '';
+          left: 0;
+          width: 100%;
+          height: 100%;
+        }
+        &::after {
+          background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 200px, rgba(255, 255, 255, 1) 100%);
+        }
       }
-      &::after{
-        background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 200px, rgba(255, 255, 255, 1) 100%);
-      }
-      &::before {
-        background: linear-gradient(to top, rgba(255, 255, 255, 0) 200px, rgba(255, 255, 255, 1) 100%);
-      }
-    }
+
   }
 }
 
@@ -71,4 +67,5 @@
     }
   }
 }
+
 

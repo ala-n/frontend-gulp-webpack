@@ -46,32 +46,21 @@
       }
     }
   }
-}
-
-.dots-wrapper {
-  .dot {
-    background-color: #bbb;
-    transition: background-color .6s ease;
-    &:hover {
+  .dots-wrapper {
+    .dot {
+      background-color: #bbb;
+      transition: background-color .6s ease;
+      &:hover {
+        background-color: @color-active;
+      }
+    }
+    .active {
       background-color: @color-active;
     }
   }
-  .active {
-    background-color: @color-active;
-  }
 }
 
-@media screen and (max-width: 1100px) {
-  .slider {
-    width: 44%;
-  }
-}
 
-@media screen and (max-width: 700px) {
-  .slider {
-    width: 80%;
-  }
-}
 
 
 
