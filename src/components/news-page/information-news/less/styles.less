@@ -10,62 +10,50 @@
   display: flex;
   .component-news {
     box-shadow: none;
-      .container-information {
-        display: flex;
-        padding-top: 160px;
-        flex-direction: column;
-        align-items: center;
-        .name-information, .text-information{
-          margin: 0;
-          .content;
-        }
-        .name-information {
-          text-align: center;
-          font-size: 35px;
-        }
-        .text-information {
-          height: auto;
-          text-align: justify;;
-          font-size: 17px;
-        }
-      }
-      .text-information-more {
-        display: none;
+    .container-information {
+      display: flex;
+      padding-top: 160px;
+      flex-direction: column;
+      align-items: center;
+      .name-information, .text-information {
         margin: 0;
+        .content;
       }
-      .image-news {
-        position: absolute;
-        min-width: 650px;
-        img {
-          position: static;
-          width: 100%;
-          opacity: .6;
-        }
-        &::after, &::before {
-          content: '';
-          left: 0;
-          width: 100%;
-          height: 100%;
-        }
-        &::after {
-          background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 200px, rgba(255, 255, 255, 1) 100%);
-        }
+      .name-information {
+        text-align: center;
+        font-size: 35px;
       }
-
-  }
-}
-
-@media screen and (max-width: 700px) {
-  .news-content {
-    .container-news {
-      .container-information {
-        padding-top: 100px;
-        .name-information, .text-information {
-          width: 80%;
-        }
+      .text-information {
+        height: auto;
+        text-align: justify;;
+        font-size: 17px;
+      }
+    }
+    .text-information-more {
+      display: none;
+      margin: 0;
+    }
+    .image-news {
+      position: absolute;
+      min-width: 650px;
+      img {
+        position: static;
+        width: 100%;
+        opacity: .6;
+      }
+      &::after, &::before {
+        content: '';
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+      &::after {
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 200px, rgba(255, 255, 255, 1) 100%);
       }
     }
   }
 }
+
+
 
 
