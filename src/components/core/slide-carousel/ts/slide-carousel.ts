@@ -23,9 +23,19 @@ class SlideCarousel extends HTMLElement {
 
 	set activeIndex(index: number) {
 		this.slides[this.activeIndex].classList.remove('active-slide');
-		index = (index + this.count) % this.count;
-		this.slides[index].classList.add('active-slide');
+		const newIndex = (index + this.count) % this.count;
+		this.slides[newIndex].classList.add('active-slide');
 		this.triggerSlideChange();
+	}
+
+	addAnimationClasses(target: string) {
+		this.slides[this.activeIndex].classList.add(target);
+	}
+	removeAnimationClasses() {
+		this.slides.forEach((slide) => {
+			slide.classList.remove('prev');
+			slide.classList.remove('next');
+		})
 	}
 
 	_onClick = (event: MouseEvent) => {
@@ -47,12 +57,15 @@ class SlideCarousel extends HTMLElement {
 	}
 
 	private setActive(target: string | number) {
+		this.removeAnimationClasses();
 		switch (target) {
 			case 'prev':
 				this.activeIndex--;
+				this.addAnimationClasses('prev');
 				break;
 			case 'next':
 				this.activeIndex++;
+				this.addAnimationClasses('next');
 				break;
 			default:
 				this.activeIndex = +target;

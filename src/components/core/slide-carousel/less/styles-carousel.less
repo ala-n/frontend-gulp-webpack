@@ -3,9 +3,23 @@
   height: 400px;
   margin: 2% 3% 2% 3%;
   overflow: hidden;
-  .active-slide {
+  .active-slide.next, .active-slide.prev {
     position: relative;
     z-index: 2;
+    .container-information{
+      width: 100%;
+      position: absolute;
+    }
+  }
+  .active-slide.prev {
+    .container-information{
+      animation: move-to-left .5s;
+    }
+  }
+  .active-slide.next {
+    .container-information{
+      animation: move-to-right .5s;
+    }
   }
   .slider-items {
     .container-news {
@@ -19,6 +33,7 @@
     }
   }
 }
+
 
 .btn-next, .btn-prev {
   position: absolute;
@@ -45,6 +60,25 @@
   left: 0;
 }
 
+@keyframes  move-to-right{
+  0%{
+    right: 100%;
+  }
+  100%{
+    right: 0;
+  }
+
+}
+
+@keyframes  move-to-left{
+  0%{
+    left: 100%;
+  }
+  100%{
+    left: 0;
+  }
+
+}
 .not-next:hover, .not-prev:hover {
   opacity: .2;
 }
