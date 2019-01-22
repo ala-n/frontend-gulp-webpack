@@ -29,14 +29,16 @@
     }
   }
   .image-news {
-    position: relative;
+    position: absolute;
     z-index: -1;
     width: 100%;
+    height: 100%;
     img {
       position: absolute;
-      width: auto;
-      min-height: 400px;
+      width: 100%;
+      min-height: 100%;
       opacity: .5;
+      object-fit: cover;
     }
     &::after, &::before {
       content: '';
@@ -71,6 +73,7 @@
   }
 
   .container-news {
+    position: relative;
     width: 100%;
     height: 100%;
     margin: 0;
