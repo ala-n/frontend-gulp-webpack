@@ -1,21 +1,23 @@
-<article class="slider">
-    <slide-carousel class="slider-items">
-        <button class="btn-prev btn-icon">
-            <svg viewBox="0 0 35 50" xmlns="http://www.w3.org/2000/svg" class="icon-sm" data-slide-target="prev">
-                <polyline points=" 30 5 5 25 30 45" stroke="black" stroke-width="3" fill="none"/>
-            </svg>
-        </button>
+<div class="list-news">
+    <article class="slider">
+        <slide-carousel class="slider-items">
+            <button class="btn-prev btn-icon">
+                <svg viewBox="0 0 35 50" xmlns="http://www.w3.org/2000/svg" class="icon-sm" data-slide-target="prev">
+                    <polyline points=" 30 5 5 25 30 45" stroke="black" stroke-width="3" fill="none"/>
+                </svg>
+            </button>
 
-        <div data-slide-container>
-            <div data-slide-item class="active-slide">{{> component-news var=list.[0]}}</div>
-            <div data-slide-item >{{> component-news var=list.[5]}}</div>
-            <div data-slide-item >{{> component-news var=list.[2]}}</div>
-        </div>
-        <button class="btn-next btn-icon" >
-            <svg viewBox="0 0 35 50" xmlns="http://www.w3.org/2000/svg" class="icon-sm" data-slide-target="next">
-                <polyline points=" 5 5 30 25 5 45" stroke="black" stroke-width="3" fill="none"/>
-            </svg>
-        </button>
-        <slide-carousel-dots class="dots-wrapper" data-dots-container></slide-carousel-dots>
-    </slide-carousel>
-</article>
+            <div data-slide-container>
+                <div data-slide-item class="active-slide">{{> component-news var=list.[0]}}</div>
+                <div data-slide-item>{{> component-news var=list.[2]}}</div>
+                <div data-slide-item>{{> component-news var=list.[1]}}</div>
+            </div>
+            <button class="btn-next btn-icon">
+                <svg viewBox="0 0 35 50" xmlns="http://www.w3.org/2000/svg" class="icon-sm" data-slide-target="next">
+                    <polyline points=" 5 5 30 25 5 45" stroke="black" stroke-width="3" fill="none"/>
+                </svg>
+            </button>
+            <slide-carousel-dots class="dots-wrapper" data-dots-container></slide-carousel-dots>
+        </slide-carousel>
+    </article>
+</div>

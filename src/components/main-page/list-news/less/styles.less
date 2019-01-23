@@ -14,59 +14,57 @@
   0 0 10px rgba(0, 0, 0, .1) inset;
 }
 
-.slider {
+.list-news {
   width: 27.3%;
+  height: 400px;
+  margin: 2% 3% 2% 3%;
   transition: 0.2s ease;
-  .shadow-border;
-  .slider-items {
-    .container-news, .component-news {
-      margin: 0;
-      background-color: #fff;
-      .shadow-border;
-      &:hover {
-        .shadow-border-hover;
-        .text-information-more {
-          margin: 10px 20px;
-          float: right;
-          visibility: visible;
-        }
-      }
-      .name-information {
-        height: 30px;
-        margin: 15px 40px;
-        font-weight: bold;
-      }
-      .text-information {
-        height: 250px;
-        margin: 5px 40px;
-        overflow: hidden;
-      }
+  .slider {
+    .shadow-border;
+    &:hover {
+      .shadow-border-hover;
       .text-information-more {
-        visibility: hidden;
+        margin: 10px 20px;
+        float: right;
+        visibility: visible;
       }
     }
-  }
-  .dots-wrapper {
-    .dot {
-      background-color: #bbb;
-      transition: background-color .6s ease;
-      &:hover {
+    .slider-items {
+      .container-news, .component-news {
+        margin: 0;
+        background-color: #fff;
+        .image-news{
+          height: 400px;
+        }
+        .name-information {
+          height: 30px;
+          margin: 15px 40px;
+          font-weight: bold;
+        }
+        .text-information {
+          height: 250px;
+          margin: 5px 40px;
+          overflow: hidden;
+        }
+        .text-information-more {
+          visibility: hidden;
+        }
+      }
+    }
+    .dots-wrapper {
+      .dot {
+        background-color: #bbb;
+        transition: background-color .6s ease;
+        &:hover {
+          background-color: @color-active;
+        }
+      }
+      .active {
         background-color: @color-active;
       }
     }
-    .active {
-      background-color: @color-active;
-    }
   }
-  //&:hover{
-  //  transition: 1s;
-  //  .component-news {
-  //    transition: 1s;
-  //    transform: translateX(100px);
-  //  }
-  //}
 }
-
 
 
 

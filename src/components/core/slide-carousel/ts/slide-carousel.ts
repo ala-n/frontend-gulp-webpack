@@ -22,6 +22,7 @@ class SlideCarousel extends HTMLElement {
 	}
 
 	set activeIndex(index: number) {
+		// this.slides[this.activeIndex].classList.add('prev-slide');
 		this.slides[this.activeIndex].classList.remove('active-slide');
 		const newIndex = (index + this.count) % this.count;
 		this.slides[newIndex].classList.add('active-slide');
@@ -31,10 +32,12 @@ class SlideCarousel extends HTMLElement {
 	addAnimationClasses(target: string) {
 		this.slides[this.activeIndex].classList.add(target);
 	}
+
 	removeAnimationClasses() {
 		this.slides.forEach((slide) => {
 			slide.classList.remove('prev');
 			slide.classList.remove('next');
+			slide.classList.remove('prev-slide');
 		})
 	}
 
