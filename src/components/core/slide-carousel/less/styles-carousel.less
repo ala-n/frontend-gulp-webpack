@@ -2,7 +2,7 @@
   position: relative;
   height: 100%;
   overflow: hidden;
-  .active-slide.next, .active-slide.prev, .active-slide {
+  .active-slide {
     position: relative;
     z-index: 3;
   }
@@ -29,19 +29,6 @@
     }
     .sibling {
       animation: move-to-left-sibling .3s;
-    }
-  }
-  .slider-items {
-    position: relative;
-    display: inherit;
-    height: 100%;
-    .container-news {
-      position: absolute;
-      z-index: 1;
-      height: 400px;
-      &:hover {
-        cursor: pointer;
-      }
     }
   }
 }

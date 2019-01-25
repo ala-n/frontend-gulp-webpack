@@ -27,6 +27,7 @@
     .slider-items {
       .container-news, .component-news {
         margin: 0;
+        width: 100%;
         background-color: #fff;
         .name-information {
           height: 30px;
@@ -50,6 +51,19 @@
       }
       .active {
         background-color: @color-active;
+      }
+    }
+    .slider-items {
+      position: relative;
+      display: inherit;
+      height: 100%;
+      .container-news {
+        position: absolute;
+        z-index: 1;
+        height: 400px;
+        &:hover {
+          cursor: pointer;
+        }
       }
     }
   }
