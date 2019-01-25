@@ -1,5 +1,6 @@
 class SlideCarousel extends HTMLElement {
 
+
 	static get is() {
 		return 'slide-carousel';
 	}
@@ -7,6 +8,7 @@ class SlideCarousel extends HTMLElement {
 	constructor() {
 		super();
 	}
+
 
 	get slides(): HTMLElement[] {
 		const els = this.querySelectorAll('[data-slide-item]') as NodeListOf<HTMLElement>;
@@ -21,24 +23,29 @@ class SlideCarousel extends HTMLElement {
 		return this.slides.findIndex((el) => el.classList.contains('active-slide'));
 	}
 
+
 	set activeIndex(index: number) {
-		// this.slides[this.activeIndex].classList.add('prev-slide');
-		this.slides[this.activeIndex].classList.remove('active-slide');
-		const newIndex = (index + this.count) % this.count;
-		this.slides[newIndex].classList.add('active-slide');
-		this.triggerSlideChange();
-	}
+		index = (index + this.count) % this.count;
+		const activeIndex = this.activeIndex;
+		if (index === activeIndex) {
+			return;
+		}
 
-	addAnimationClasses(target: string) {
-		this.slides[this.activeIndex].classList.add(target);
-	}
+		const activeSlide = this.slides[activeIndex];
+		const siblingSlide = this.slides[index];
 
-	removeAnimationClasses() {
-		this.slides.forEach((slide) => {
-			slide.classList.remove('prev');
-			slide.classList.remove('next');
-			slide.classList.remove('prev-slide');
-		})
+		const direction = this.getDirection(activeIndex, index);
+
+		siblingSlide.classList.add('sibling');
+		this.classList.add(`move-${direction}`);
+
+		siblingSlide.addEventListener('animationend', () => {
+			activeSlide.classList.remove('active-slide');
+			siblingSlide.classList.add('active-slide');
+			siblingSlide.classList.remove('sibling');
+			this.classList.remove(`move-${direction}`);
+			this.triggerSlideChange();
+		}, {once: true});
 	}
 
 	_onClick = (event: MouseEvent) => {
@@ -59,16 +66,20 @@ class SlideCarousel extends HTMLElement {
 		this.removeEventListener('click', this._onClick);
 	}
 
+	private getDirection(i: number, j: number): string {
+		const dif = i - j;
+		return (dif < 0) ?
+			(Math.abs(dif) > Math.abs(dif + this.count) ? 'left' : 'right') :
+			(Math.abs(dif) > Math.abs(dif - this.count) ? 'right' : 'left');
+	}
+
 	private setActive(target: string | number) {
-		this.removeAnimationClasses();
 		switch (target) {
 			case 'prev':
 				this.activeIndex--;
-				this.addAnimationClasses('prev');
 				break;
 			case 'next':
 				this.activeIndex++;
-				this.addAnimationClasses('next');
 				break;
 			default:
 				this.activeIndex = +target;

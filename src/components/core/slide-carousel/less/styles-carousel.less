@@ -4,33 +4,40 @@
   overflow: hidden;
   .active-slide.next, .active-slide.prev, .active-slide {
     position: relative;
-    z-index: 2;
-    .container-information{
-      width: 100%;
+    z-index: 3;
+  }
+  .slider-items.move-right, .slider-items.move-left {
+    .active-slide, .sibling {
       position: absolute;
+      width: 100%;
+    }
+    .sibling {
+      z-index: 3;
     }
   }
-  .active-slide.prev {
-    .container-information{
-      animation: move-to-left .5s;
+  .slider-items.move-right {
+    .active-slide {
+      animation: move-to-right-active .3s;
     }
-    //.image-news{
-    //  animation: move-to-left .5s;
-    //}
+    .sibling {
+      animation: move-to-right-sibling .3s;
+    }
   }
-  .active-slide.next {
-    .container-information{
-      animation: move-to-right .5s;
+  .slider-items.move-left {
+    .active-slide {
+      animation: move-to-left-active .3s;
     }
-    //.image-news{
-    //  animation: move-to-right .5s;
-    //}
+    .sibling {
+      animation: move-to-left-sibling .3s;
+    }
   }
   .slider-items {
+    position: relative;
+    display: inherit;
+    height: 100%;
     .container-news {
       position: absolute;
       z-index: 1;
-      width: 100%;
       height: 400px;
       &:hover {
         cursor: pointer;
@@ -39,10 +46,9 @@
   }
 }
 
-
 .btn-next, .btn-prev {
   position: absolute;
-  z-index: 3;
+  z-index: 99;
   height: 100%;
   padding: 0 3px;
   border: none;
@@ -65,137 +71,46 @@
   left: 0;
 }
 
-@keyframes  move-to-right{
-  0%{
-    right: 100%;
-  }
-  100%{
-    right: 0;
-  }
-
-}
-
-@keyframes  move-to-left{
-  0%{
-    left: 100%;
-  }
-  100%{
-    left: 0;
-  }
-
-}
 .not-next:hover, .not-prev:hover {
   opacity: .2;
 }
 
-////.slider {
-////  position: relative;
-////  height: 400px;
-////  .active-slide.next, .active-slide.prev, .active-slide, .prev-slide {
-////    //position: relative;
-////    z-index: 3;
-////    .container-information {
-////      width: 100%;
-////      position: absolute;
-////    }
-////  }
-////  //.prev-slide {
-////  //  position: absolute;
-////  //  z-index: 2;
-////  //  width: 100%;
-////  //  height: 100%;
-////  //  .container-information {
-////  //    background: white;
-////  //    animation: to-right .2s;
-////  //  }
-////  //  .image-news {
-////  //    animation: to-right .2s;
-////  //  }
-////  //}
-////  .active-slide.prev {
-////    .container-information, .image-news {
-////      animation: move-to-left .5s;
-////    }
-////  }
-////  .active-slide.next {
-////    position: absolute;
-////    z-index: 2;
-////    width: 100%;
-////    height: 100%;
-////    .container-information {
-////      animation: move-to-right .5s;
-////    }
-////    .image-news {
-////      animation: move-to-right .3s;
-////    }
-////  }
-////  .slider-items {
-////    .container-news {
-////      position: absolute;
-////      z-index: 1;
-////      width: 100%;
-////      &:hover {
-////        cursor: pointer;
-////      }
-////    }
-////  }
-////}
-////
-////.btn-next, .btn-prev {
-////  position: absolute;
-////  z-index: 3;
-////  height: 100%;
-////  padding: 0 3px;
-////  border: none;
-////  opacity: .1;
-////  cursor: pointer;
-////  transition: opacity .2s ease-in;
-////  &:hover {
-////    opacity: .5;
-////  }
-////  &:focus {
-////    outline: none;
-////  }
-////}
-////
-////.btn-next {
-////  right: 0;
-////}
-////
-////.btn-prev {
-////  left: 0;
-////}
-////
-////@keyframes move-to-right {
-////  0% {
-////    right: 100%;
-////  }
-////  100% {
-////    right: 0;
-////  }
-////
-////}
-////
-////@keyframes move-to-right {
-////  0% {
-////    right: 100%;
-////  }
-////  100% {
-////    right: 0;
-////  }
-////
-////}
-////
-////@keyframes move-to-left {
-////  0% {
-////    left: 100%;
-////  }
-////  100% {
-////    left: 0;
-////  }
-////
-////}
-////
-////.not-next:hover, .not-prev:hover {
-////  opacity: .2;
-////}
+@keyframes move-to-right-active {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+
+}
+
+@keyframes move-to-right-sibling {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+
+}
+
+@keyframes move-to-left-sibling {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+
+}
+
+@keyframes move-to-left-active {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+
+}
