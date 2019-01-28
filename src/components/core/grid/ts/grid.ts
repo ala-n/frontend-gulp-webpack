@@ -1,5 +1,5 @@
 import MatchQuery from '../../match-query/ts/match-query';
-import {delay} from '../../utils/promise-utils';
+import GridService from './grid-service';
 
 class Grid extends HTMLElement {
 
@@ -10,21 +10,18 @@ class Grid extends HTMLElement {
 	matchQuery: MatchQuery;
 	iObserver: IntersectionObserver;
 	gridElsCount: number;
-	_loadingPromise: Promise<any>;
+	url: string;
 
 	constructor() {
 		super();
 		this.gridElsCount = +this.dataset.count;
+		this.url = this.dataset.url;
 		this.iObserver = new IntersectionObserver(this.onIntersect.bind(this), Grid.observeOptions);
 	}
 
 	connectedCallback() {
 		this.matchQuery = MatchQuery.parse(this.getAttribute('data-count-query'));
 		this.appendMarker();
-	}
-
-	get url() {
-		return this.dataset.url;
 	}
 
 	buildMarkerEl() {
@@ -50,57 +47,11 @@ class Grid extends HTMLElement {
 		return null;
 	}
 
-	get loadedElsCount(): number {
-		const count = +this.matchQuery.matchedValue;
-		return count - this.itemsCount % count;
-	}
-
-	loadMore() {
-		const url = `${this.url}/elsCount?start=${this.itemsCount}&count=${this.loadedElsCount + this.itemsCount}`;
-		this.setAttribute('loading', '');
-		if (this._loadingPromise) {
-			return;
-		}
-		const finallyCb = () => {
-			this._loadingPromise = null;
-			this.removeAttribute('loading');
-		};
-		this._loadingPromise = fetch(url, {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json; charset=utf-8',
-			}
-		});
-		if (this.hasAttribute('debug-delay')) {
-			this._loadingPromise = delay(this._loadingPromise, +this.getAttribute('debug-delay'));
-		}
-		this._loadingPromise.then((response: Response) => {
-			return response.ok ? response.text() : response.text().then((text) => Promise.reject(text));
-		}).then((r) => {
-			this.onResponse(r);
-			finallyCb();
-		}).catch(() => {
-			this.onError();
-			finallyCb();
-		})
-	}
-
-	onResponse = (responseText: string) => {
-		const items = this.buildItems(responseText);
-		if (items) {
-			this.itemsContainer.appendChild(items);
-			this.appendMarker();
-		}
-	};
-	onError = () => {
-		console.log('Error!');
-	};
-
 	onIntersect(entries: IntersectionObserverEntry[], iObserver: IntersectionObserver) {
 		for (const entry of entries) {
 			if (entry.isIntersecting) {
 				if (this.gridElsCount > this.itemsCount) {
-					this.loadMore();
+					GridService.loadMore();
 				}
 				iObserver.unobserve(entry.target);
 			}
@@ -121,3 +72,4 @@ class Grid extends HTMLElement {
 }
 
 customElements.define('grid-element', Grid);
+export default Grid;
