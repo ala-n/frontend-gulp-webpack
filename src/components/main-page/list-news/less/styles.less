@@ -29,17 +29,22 @@
         margin: 0;
         width: 100%;
         background-color: #fff;
-        .name-information {
+        .container-information {
+          height: 320px;
+          margin: 9px 40px;
           overflow: hidden;
-          max-height: 110px;
-          word-break: break-word;
-          margin: 15px 0;
-          font-weight: bold;
-        }
-        .text-information {
-          height: 310px;
-          margin: 5px 40px;
-          overflow: hidden;
+          .name-information {
+            max-height: 80px;
+            word-break: break-word;
+            margin: 10px 0 10px;
+            font-size: 1.4em;
+            font-weight: bold;
+            overflow: hidden;
+          }
+          .text-information {
+            height: 100%;
+            column-width: 400px;
+          }
         }
       }
     }
